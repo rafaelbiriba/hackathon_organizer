@@ -1,0 +1,6 @@
+# Settings sensible data here
+
+google_oauth_id: oauth_id # Your google oauth id
+google_oauth_secret: secret # Your google oauth secret
+
+# Anything that you want to stay outside git...

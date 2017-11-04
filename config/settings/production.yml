@@ -1,0 +1,2 @@
+google_oauth_id: <%= ENV["GOOGLE_OAUTH_ID"] %>
+google_oauth_secret: <%= ENV["GOOGLE_OAUTH_SECRET"] %>

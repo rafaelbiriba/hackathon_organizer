@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
   resources :projects
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get "auth/login" => "auth#login"
+  get "auth/logout" => "auth#logout"
+  match "auth/:provider/callback" => "auth#callback", via: [:get, :post]
+  get "auth/failure" => "auth#failure"
 end
