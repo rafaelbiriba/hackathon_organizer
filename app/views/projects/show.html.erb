@@ -1,20 +1,45 @@
 <div class="page-header">
   <%= link_to projects_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Back
+    Back to list
   <% end %>
   <%= link_to edit_project_path(@project), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+    Edit this project
   <% end %>
-  <h1>Show project</h1>
+  <%= link_to "#", class: 'btn btn-success' do %>
+    <span class="glyphicon glyphicon-heart"></span>
+    Subscribe to work on this project
+  <% end %>
+  <h1><%= @project.title %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Title:</dt>
-  <dd><%= @project.title %></dd>
-
   <dt>Description:</dt>
   <dd><%= @project.description %></dd>
-
+  <br/><br/>
+  <dt>Created by:</dt>
+  <dd><img src="<%= current_user.profile_image_url %>" class="img-thumbnail" width="60px"> <%= @project.owner.name %> (<%= @project.owner.email %>)</dd>
 </dl>
+<br/>
+
+<h3>Subscribed to work on this project:</h3>
+
+<% if @project.subscribers.empty? %>
+  <br/>
+  <h5>Nobody yet :(</h5>
+<% end %>
+
+<div class="row">
+  <% @project.subscribers.each do |user| %>
+    <div class="col-sm-3 col-md-2">
+      <div class="thumbnail">
+        <img src="<%= current_user.profile_image_url %>">
+        <div class="caption">
+          <h3><%= current_user.name %></h3>
+          <p><%= current_user.email %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
