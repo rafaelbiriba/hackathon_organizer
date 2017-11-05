@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, except: [:index]
+  before_action :set_project, except: [:index, :new]
   before_action :check_project_ownership, only: [:edit, :update, :destroy]
   before_action :validate_admin_user, only: [:admin_force_remove_subscriber]
 
