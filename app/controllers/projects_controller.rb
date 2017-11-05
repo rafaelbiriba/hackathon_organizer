@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
   end
 
   def add_subscriber
-    if user_is_already_subscribed?
+    if user_is_already_subscribed?(current_user)
       redirect_to @project, flash: { error: "You are already subscribed to this project."  }
     else
       @project.subscribers << current_user
