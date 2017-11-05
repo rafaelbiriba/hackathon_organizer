@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20171104191905) do
     t.string "email"
     t.text "profile_image_url"
     t.boolean "is_admin"
-    t.boolean "is_developer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
