@@ -108,6 +108,7 @@ GEM
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    mysql2 (0.4.9)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -197,6 +198,7 @@ DEPENDENCIES
   byebug
   config
   jquery-rails
+  mysql2
   omniauth-google-oauth2
   puma (~> 3.7)
   rails (~> 5.1.4)
