@@ -4,13 +4,15 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back to list
   <% end %>
-  <%= link_to edit_project_path(@project), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit this project
-  <% end %>
-  <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-remove"></span>
-    Delete this project
+  <% if @project.owner == current_user || current_user.is_admin %>
+    <%= link_to edit_project_path(@project), class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit this project
+    <% end %>
+    <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-remove"></span>
+      Delete this project
+    <% end %>
   <% end %>
 </div>
 <h1><%= @project.title %></h1>
@@ -46,12 +48,18 @@
 
 <div class="row">
   <% @project.subscribers.each do |user| %>
-    <div class="col-sm-3 col-md-2">
+    <div class="col-sm-3 col-md-3">
       <div class="thumbnail user">
-        <img src="<%= current_user.profile_image_url %>">
+        <img src="<%= user.profile_image_url %>">
         <div class="caption">
-          <h3><%= current_user.name %></h3>
-          <p><%= current_user.email %></p>
+          <h3><%= user.name %></h3>
+          <p><%= user.email %></p>
+          <% if current_user.is_admin %>
+            <%= link_to admin_force_remove_subscriber_project_url(@project, {user_id: user.id}), method: :delete, data: { confirm: "Are you sure to remove #{user.name} from this project?" }, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-ban-circle"></span>
+              Remove this user
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>

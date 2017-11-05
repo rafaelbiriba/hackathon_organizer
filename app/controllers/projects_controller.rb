@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :add_subscriber, :remove_subscriber]
-  before_action :check_project_ownership, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, except: [:index]
+  before_action :check_project_ownership, only: [:edit, :update, :destroy]
+  before_action :validate_admin_user, only: [:admin_force_remove_subscriber]
 
   def index
     @projects = Project.all
@@ -50,7 +51,7 @@ class ProjectsController < ApplicationController
   end
 
   def remove_subscriber
-    if user_is_already_subscribed?
+    if user_is_already_subscribed?(current_user)
       @project.subscribers.destroy(current_user)
       redirect_to @project, notice: "You was successfully removed from the subscribed list."
     else
@@ -58,9 +59,21 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def admin_force_remove_subscriber
+    user = User.find(params[:user_id])
+    @project.subscribers.destroy(user)
+    redirect_to @project, notice: "#{user.name} was removed from the subscribed list."
+  end
+
   private
-    def user_is_already_subscribed?
-      @project.subscribers.include?(current_user)
+    def validate_admin_user
+      return if current_user.is_admin
+      flash[:error] = "You are not an admin."
+      redirect_to root_url
+    end
+
+    def user_is_already_subscribed?(user)
+      @project.subscribers.include?(user)
     end
 
     def set_project
@@ -68,7 +81,7 @@ class ProjectsController < ApplicationController
     end
 
     def check_project_ownership
-      return if @project.owner == current_user
+      return if @project.owner == current_user || current_user.is_admin
       flash[:error] = "Project doesn't belongs to you."
       redirect_to projects_url
     end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     member do
       get "add_subscriber"
       delete "remove_subscriber"
+      delete "admin_force_remove_subscriber"
     end
   end
 
