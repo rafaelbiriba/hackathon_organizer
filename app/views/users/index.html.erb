@@ -2,11 +2,11 @@
   <h1>Users</h1>
 </div>
 
-<div class="row">
+<div class="row users">
   <% @users.each do |user| %>
-    <div class="col-sm-3 col-md-2">
-      <div class="thumbnail">
-        <img src="<%= current_user.profile_image_url %>">
+    <div class="col-sm-3 col-md-3">
+      <div class="thumbnail user">
+        <img src="<%= user.profile_image_url %>">
         <div class="caption">
           <h3><%= user.name %></h3>
           <p>
