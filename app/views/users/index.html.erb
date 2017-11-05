@@ -1,0 +1,32 @@
+<div class="page-header">
+  <h1>Users</h1>
+</div>
+
+<div class="row">
+  <% @users.each do |user| %>
+    <div class="col-sm-3 col-md-2">
+      <div class="thumbnail">
+        <img src="<%= current_user.profile_image_url %>">
+        <div class="caption">
+          <h3><%= user.name %></h3>
+          <p>
+            <%= user.email %>
+            <br/><br/>
+            <% if user.is_admin %>
+              <%= link_to revoke_user_admin_user_url(user), method: :delete, data: { confirm: 'Are you sure to revoke admin of this user?' }, class: 'btn btn-danger' do %>
+                <span class="glyphicon glyphicon-remove"></span>
+                Revoke Admin
+              <% end %>
+            <% else %>
+              <%= link_to give_user_admin_user_url(user), class: 'btn btn-primary' do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+                Give Admin
+              <% end %>
+            <% end %>
+            <br/>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

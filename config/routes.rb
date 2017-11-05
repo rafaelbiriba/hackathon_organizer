@@ -6,6 +6,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:index] do
+    member do
+      get "give_user_admin"
+      delete "revoke_user_admin"
+    end
+  end
+
   get "auth/login" => "auth#login"
   get "auth/logout" => "auth#logout"
   match "auth/:provider/callback" => "auth#callback", via: [:get, :post]

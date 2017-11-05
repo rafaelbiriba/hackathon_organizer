@@ -33,6 +33,9 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="<%= projects_url %>">Projects</a></li>
           <% if current_user %>
+            <% if current_user.is_admin %>
+              <li><a href="<%= users_url %>">Users</a></li>
+            <% end %>
             <li class="logout">
               <a href="<%= auth_logout_url %>">
                 <img src="<%= current_user.profile_image_url %>" class="img-circle"> Logout
