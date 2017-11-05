@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :projects
+  resources :projects do
+    member do
+      get "add_subscriber"
+      delete "remove_subscriber"
+    end
+  end
 
   get "auth/login" => "auth#login"
   get "auth/logout" => "auth#logout"

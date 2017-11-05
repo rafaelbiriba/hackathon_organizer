@@ -26,11 +26,19 @@
 <br/>
 
 <h3>Subscribed to work on this project:</h3>
-<%= link_to "#", class: 'btn btn-success' do %>
-  <span class="glyphicon glyphicon-heart"></span>
-  Subscribe to work on this project
+<% if @project.subscribers.include?(current_user) %>
+  <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-ban-circle"></span>
+    Remove myself from this project
+  <% end %>
+<% else %>
+  <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success' do %>
+    <span class="glyphicon glyphicon-heart"></span>
+    Subscribe to work on this project
+  <% end %>
 <% end %>
-<br/>
+
+<br/><br/>
 <% if @project.subscribers.empty? %>
   <br/>
   <h5>Nobody yet :( Why you don't invite someone to join?</h5>

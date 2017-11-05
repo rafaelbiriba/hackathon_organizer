@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :add_subscriber, :remove_subscriber]
   before_action :check_project_ownership, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -40,7 +40,29 @@ class ProjectsController < ApplicationController
     redirect_to projects_url, notice: "Project was successfully destroyed."
   end
 
+  def add_subscriber
+    if user_is_already_subscribed?
+      redirect_to @project, flash: { error: "You are already subscribed to this project."  }
+    else
+      @project.subscribers << current_user
+      redirect_to @project, notice: "You was successfully subscribed to this project."
+    end
+  end
+
+  def remove_subscriber
+    if user_is_already_subscribed?
+      @project.subscribers.destroy(current_user)
+      redirect_to @project, notice: "You was successfully removed from the subscribed list."
+    else
+      redirect_to @project, flash: { error: "You are not subscribed to this project." }
+    end
+  end
+
   private
+    def user_is_already_subscribed?
+      @project.subscribers.include?(current_user)
+    end
+
     def set_project
       @project = Project.find(params[:id])
     end
