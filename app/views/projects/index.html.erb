@@ -21,13 +21,18 @@
     <tbody>
       <% @projects.each do |project| %>
         <%
+          subscribers_count = project.subscribers.count
           projectLineColor = ""
-          projectLineColor = "success" if project.subscribers.count >= 1
+          projectLineColor = "success" if subscribers_count >= 1
         %>
         <%= content_tag :tr, class: projectLineColor, data: { on_click: project_url(project) } do %>
           <td><%= truncate(project.title, length: 70) %></td>
           <td><%= truncate(project.description, length: 200) %></td>
           <td>
+            <% if subscribers_count == 0 %>
+              Nobody yet
+            <% end %>
+
             <% project.subscribers.each do |subscribe| %>
               <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
               <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
