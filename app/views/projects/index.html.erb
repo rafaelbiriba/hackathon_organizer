@@ -22,12 +22,11 @@
         <%
           subscribers = project.subscribers.count
           projectLineColor = ""
-          projectLineColor = "warning" if subscribers == 0
           projectLineColor = "success" if subscribers >= 1
         %>
         <%= content_tag :tr, class: projectLineColor do %>
-          <td><%= truncate(project.title, length: 40) %></td>
-          <td><%= truncate(project.description, length: 85) %></td>
+          <td><%= truncate(project.title, length: 80) %></td>
+          <td><%= truncate(project.description, length: 180) %></td>
           <td><%= subscribers %> </td>
           <td>
             <%= link_to project_path(project), class: 'btn btn-primary' do %>
