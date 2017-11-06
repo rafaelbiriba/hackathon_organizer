@@ -3,7 +3,7 @@
     <span class="glyphicon glyphicon-plus"></span>
     New Project
   <% end %>
-  <h1>Projects / Ideas</h1>
+  <h1>Projects / Ideas (<%= @projects.count %>)</h1>
 </div>
 
 <div class="table-responsive">
@@ -34,7 +34,6 @@
             <% end %>
 
             <% project.subscribers.each do |subscribe| %>
-              <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
               <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
             <% end %>
           </td>
