@@ -7,12 +7,13 @@
 </div>
 
 <div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover table-condensed">
+  <table class="table table-striped table-bordered table-hover projects-list">
     <thead>
       <tr>
         <th class="col-md-3">Project name</th>
-        <th class="col-md-6">Project description</th>
+        <th class="col-md-8">Project description</th>
         <th class="col-md-1">How many subscribers</th>
+        <th class="col-md-1">Created by</th>
         <th class="col-md-1"></th>
       </tr>
     </thead>
@@ -20,18 +21,22 @@
     <tbody>
       <% @projects.each do |project| %>
         <%
-          subscribers = project.subscribers.count
           projectLineColor = ""
-          projectLineColor = "success" if subscribers >= 1
+          projectLineColor = "success" if project.subscribers.count >= 1
         %>
-        <%= content_tag :tr, class: projectLineColor do %>
+        <%= content_tag :tr, class: projectLineColor, data: { on_click: project_url(project) } do %>
           <td><%= truncate(project.title, length: 80) %></td>
-          <td><%= truncate(project.description, length: 180) %></td>
-          <td><%= subscribers %> </td>
+          <td><%= truncate(project.description, length: 200) %></td>
           <td>
-            <%= link_to project_path(project), class: 'btn btn-primary' do %>
+            <% project.subscribers.each do |subscribe| %>
+              <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
+              <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
+            <% end %>
+          </td>
+          <td><img src="<%= project.owner.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= project.owner.name %>" title="<%= project.owner.name %>"> </td>
+          <td>
+            <%= link_to project_path(project), class: 'btn btn-primary', title: "View this project", alt: "View this project" do %>
               <span class="glyphicon glyphicon-eye-open"></span>
-              View this project
             <% end %>
           </td>
         <% end %>
