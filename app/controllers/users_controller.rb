@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :find_user, except: [:index]
 
   def index
-    @users = User.all
+    @users = User.all.order(:name)
   end
 
   def give_user_admin
