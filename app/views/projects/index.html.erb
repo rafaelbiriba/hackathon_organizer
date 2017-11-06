@@ -23,7 +23,7 @@
           subscribers = project.subscribers.count
           projectLineColor = ""
           projectLineColor = "warning" if subscribers == 0
-          projectLineColor = "success" if subscribers > 1
+          projectLineColor = "success" if subscribers >= 1
         %>
         <%= content_tag :tr, class: projectLineColor do %>
           <td><%= truncate(project.title, length: 40) %></td>
