@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :validate_admin_user, only: [:admin_force_remove_subscriber]
 
   def index
-    @projects = Project.left_outer_joins(:subscribers).group("projects.id").select("projects.*, count(users.id) as users_count").order("users_count ASC").uniq
+    @projects = Project.left_outer_joins(:subscribers).group("projects.id").select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC").uniq
   end
 
   def show
