@@ -1,5 +1,6 @@
 class AuthController < ApplicationController
   skip_before_action :validate_user_logged
+  skip_before_action :define_notifications_counter
 
   def callback
     data = request.env['omniauth.auth'].info
