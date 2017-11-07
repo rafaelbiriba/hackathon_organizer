@@ -13,6 +13,7 @@
         <th class="col-md-3">Project name</th>
         <th class="col-md-8">Project description</th>
         <th class="col-md-1">How many subscribers</th>
+        <th class="col-md-1">Comments</th>
         <th class="col-md-1">Created by</th>
         <th class="col-md-1"></th>
       </tr>
@@ -30,12 +31,15 @@
           <td><%= truncate(project.description, length: 200) %></td>
           <td>
             <% if subscribers_count == 0 %>
-              Nobody yet
+              <span class="label label-warning">Nobody yet</span>
             <% end %>
 
             <% project.subscribers.each do |subscribe| %>
               <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
             <% end %>
+          </td>
+          <td>
+            <span class="badge"><%= project.comments.count %></span>
           </td>
           <td><img src="<%= project.owner.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= project.owner.name %>" title="<%= project.owner.name %>"> </td>
           <td>

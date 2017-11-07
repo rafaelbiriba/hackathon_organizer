@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       delete "remove_subscriber"
       delete "admin_force_remove_subscriber"
     end
+
+    resources :comments, only: [:create]
   end
 
   resources :users, only: [:index] do
