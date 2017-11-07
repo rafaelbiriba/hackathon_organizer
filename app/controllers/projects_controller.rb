@@ -4,7 +4,10 @@ class ProjectsController < ApplicationController
   before_action :validate_admin_user, only: [:admin_force_remove_subscriber]
 
   def index
-    @projects = Project.left_outer_joins(:subscribers).group("projects.id").select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC").uniq
+    @projects = projects_default_filter
+    @total_count = @projects.uniq.count
+    apply_filters!
+    @projects = @projects.uniq
   end
 
   def show
@@ -70,6 +73,19 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def apply_filters!
+    if params["filter"] == "created_by_me"
+      @projects = @projects.where(owner_id: current_user.id)
+    elsif params["filter"] == "subscribed"
+      @projects = @projects.where("users.id = ?", current_user.id)
+    end
+  end
+
+  def projects_default_filter
+    Project.left_outer_joins(:subscribers).group("projects.id").select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC")
+  end
+
   def send_notifications(notification_type)
     @project.all_involved_users(except_user: current_user).each do |user|
       Notification.create!(notification_type: notification_type,

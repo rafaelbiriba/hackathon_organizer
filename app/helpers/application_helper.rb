@@ -10,4 +10,9 @@ module ApplicationHelper
   def human_readable_date(date)
     date.strftime("%m/%d/%Y %H:%M:%S")
   end
+
+  def project_list_filter_class(filter_name=nil)
+    return "btn-primary" if params[:filter] == filter_name
+    "btn-default"
+  end
 end
