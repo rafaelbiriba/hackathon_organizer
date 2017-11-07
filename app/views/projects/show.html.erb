@@ -1,67 +1,68 @@
-<br/>
-<div>
-  <%= link_to projects_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back to list
-  <% end %>
-  <% if @project.owner == current_user || current_user.is_admin %>
-    <%= link_to edit_project_path(@project), class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-pencil"></span>
-      Edit this project
-    <% end %>
-    <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-remove"></span>
-      Delete this project
-    <% end %>
-  <% end %>
-</div>
-<h1><%= @project.title %></h1>
-<hr>
-
-<dl class="dl-horizontal">
-  <dt>Description:</dt>
-  <dd><%= simple_format(@project.description) %></dd>
-  <br/><br/>
-  <dt>Created by:</dt>
-  <dd><img src="<%= @project.owner.profile_image_url %>" class="img-thumbnail" width="60px"> <%= @project.owner.name %> (<%= @project.owner.email %>)</dd>
-</dl>
-<br/>
-
-<h3>Subscribed to work on this project:</h3>
-<% if @project.subscribers.include?(current_user) %>
-  <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
-    <span class="glyphicon glyphicon-ban-circle"></span>
-    Remove myself from this project
-  <% end %>
-<% else %>
-  <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success' do %>
-    <span class="glyphicon glyphicon-heart"></span>
-    I want to work on this project
-  <% end %>
-<% end %>
-
-<br/><br/>
-<% if @project.subscribers.empty? %>
+<div class="project-show">
   <br/>
-  <h5>Nobody yet :( Why you don't invite someone to join?</h5>
-<% end %>
+  <div>
+    <%= link_to projects_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Back to list
+    <% end %>
+    <% if @project.owner == current_user || current_user.is_admin %>
+      <%= link_to edit_project_path(@project), class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Edit this project
+      <% end %>
+      <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
+        <span class="glyphicon glyphicon-remove"></span>
+        Delete this project
+      <% end %>
+    <% end %>
+  </div>
+  <h1><%= @project.title %></h1>
+  <hr>
 
-<div class="row">
-  <% @project.subscribers.each do |user| %>
-    <div class="col-sm-3 col-md-3">
-      <div class="thumbnail user">
-        <img src="<%= user.profile_image_url %>">
-        <div class="caption">
-          <h3><%= user.name %></h3>
+  <dl class="dl-horizontal">
+    <dt>Description:</dt>
+    <dd><%= simple_format(@project.description) %></dd>
+    <br/><br/>
+    <dt>Created by:</dt>
+    <dd><img src="<%= @project.owner.profile_image_url %>" class="img-thumbnail" width="60px"> <%= @project.owner.name %> (<%= @project.owner.email %>)</dd>
+  </dl>
+  <br/>
+
+  <h3>Subscribed to work on this project:</h3>
+  <% if @project.subscribers.include?(current_user) %>
+    <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-ban-circle"></span>
+      Remove myself from this project
+    <% end %>
+  <% else %>
+    <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-heart"></span>
+      I want to work on this project
+    <% end %>
+  <% end %>
+
+  <% if @project.subscribers.empty? %>
+    <br/><br/>
+    <h5>Nobody yet :( Why you don't invite someone to join?</h5>
+  <% end %>
+
+  <div class="subscribers-list">
+    <% @project.subscribers.each do |user| %>
+      <div class="media pull-left">
+        <p class="pull-left">
+          <img class="media-object" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>">
+        </p>
+        <div class="media-body">
+          <h4 class="media-heading"><%= user.name %></h4>
           <p><%= user.email %></p>
           <% if current_user.is_admin %>
             <%= link_to admin_force_remove_subscriber_project_url(@project, {user_id: user.id}), method: :delete, data: { confirm: "Are you sure to remove #{user.name} from this project?" }, class: 'btn btn-danger' do %>
               <span class="glyphicon glyphicon-ban-circle"></span>
-              Remove this user
+              Remove <%= truncate(user.name, length: 10) %> from this project
             <% end %>
           <% end %>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
