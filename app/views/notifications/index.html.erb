@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h1>Notifications</h1>
+</div>
+
+<ul class="list-group">
+<% @notifications.map(&:to_hash).each do |notification| %>
+    <li class="list-group-item">
+      <h4><% if !notification[:visualized] %>
+          <span class="glyphicon glyphicon-star"></span>
+        <% end %>
+        <%= notification[:title] %>
+        <small><%= human_readable_date(notification[:date]) %> - <a href="<%= notification[:link] %>">(Click to see more)</a></small></h4>
+      <%= notification[:text].html_safe %>
+    </li>
+<% end %>
+</ul>

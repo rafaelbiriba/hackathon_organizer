@@ -47,6 +47,7 @@ class ProjectsController < ApplicationController
       redirect_to @project, flash: { error: "You are already subscribed to this project."  }
     else
       @project.subscribers << current_user
+      send_notifications("user_subscribed")
       redirect_to @project, notice: "You was successfully subscribed to this project."
     end
   end
@@ -54,6 +55,7 @@ class ProjectsController < ApplicationController
   def remove_subscriber
     if user_is_already_subscribed?(current_user)
       @project.subscribers.destroy(current_user)
+      send_notifications("user_unsubscribed")
       redirect_to @project, notice: "You was successfully removed from the subscribed list."
     else
       redirect_to @project, flash: { error: "You are not subscribed to this project." }
@@ -63,10 +65,20 @@ class ProjectsController < ApplicationController
   def admin_force_remove_subscriber
     user = User.find(params[:user_id])
     @project.subscribers.destroy(user)
+    send_notifications("user_unsubscribed_by_admin")
     redirect_to @project, notice: "#{user.name} was removed from the subscribed list."
   end
 
   private
+  def send_notifications(notification_type)
+    @project.all_involved_users(except_user: current_user).each do |user|
+      Notification.create!(notification_type: notification_type,
+                           user_related: current_user,
+                           user_target: user,
+                           project: @project)
+    end
+  end
+
     def validate_admin_user
       return if current_user.is_admin
       flash[:error] = "You are not an admin."

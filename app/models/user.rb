@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :projects, foreign_key: :owner_id
   has_and_belongs_to_many :subscriptions, class_name: "Project"
   has_many :comments, foreign_key: :owner_id
+  has_many :notifications, foreign_key: :user_target_id
 
   validate :allowed_domain
 

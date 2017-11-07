@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
 
+  resources :notifications, only: [:index] do
+    collection do
+      get :counter
+    end
+  end
+
   resources :users, only: [:index] do
     member do
       get "give_user_admin"

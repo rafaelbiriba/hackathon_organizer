@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107162105) do
+ActiveRecord::Schema.define(version: 20171107182726) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
@@ -20,6 +20,21 @@ ActiveRecord::Schema.define(version: 20171107162105) do
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_comments_on_owner_id"
     t.index ["project_id"], name: "index_comments_on_project_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "comment_id"
+    t.integer "user_related_id"
+    t.integer "user_target_id"
+    t.string "notification_type"
+    t.boolean "visualized", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_notifications_on_comment_id"
+    t.index ["project_id"], name: "index_notifications_on_project_id"
+    t.index ["user_related_id"], name: "index_notifications_on_user_related_id"
+    t.index ["user_target_id"], name: "index_notifications_on_user_target_id"
   end
 
   create_table "projects", force: :cascade do |t|
