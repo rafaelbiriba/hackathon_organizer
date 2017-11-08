@@ -31,6 +31,8 @@
     <dt>Description:</dt>
     <dd><%= simple_format(@project.description) %></dd>
     <br/><br/>
+    <dt>Created at:</dt>
+    <dd><%= human_readable_date(@project.created_at) %></dd>
     <dt>Created by:</dt>
     <dd><img src="<%= @project.owner.profile_image_url %>" class="img-thumbnail" width="60px"> <%= @project.owner.name %> (<%= @project.owner.email %>)</dd>
   </dl>

@@ -23,7 +23,6 @@
         <th class="col-md-1">How many subscribers</th>
         <th class="col-md-1">Comments</th>
         <th class="col-md-1">Created by</th>
-        <th class="col-md-1"></th>
       </tr>
     </thead>
 
@@ -35,7 +34,7 @@
           projectLineColor = "success" if subscribers_count >= 1
         %>
         <%= content_tag :tr, class: projectLineColor, data: { on_click: project_url(project) } do %>
-          <td><%= truncate(project.title, length: 70) %></td>
+          <td><a href="#"><%= truncate(project.title, length: 70) %></a></td>
           <td><%= truncate(project.description, length: 200) %></td>
           <td>
             <% if subscribers_count == 0 %>
@@ -50,11 +49,6 @@
             <span class="badge"><%= project.comments.count %></span>
           </td>
           <td><img src="<%= project.owner.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= project.owner.name %>" title="<%= project.owner.name %>"> </td>
-          <td>
-            <%= link_to project_path(project), class: 'btn btn-primary', title: "View this project", alt: "View this project" do %>
-              <span class="glyphicon glyphicon-eye-open"></span>
-            <% end %>
-          </td>
         <% end %>
       <% end %>
     </tbody>

@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def human_readable_date(date)
-    date.strftime("%m/%d/%Y %H:%M:%S")
+    date.strftime("%d/%b/%Y %H:%M:%S")
   end
 
   def project_list_filter_class(filter_name=nil)
