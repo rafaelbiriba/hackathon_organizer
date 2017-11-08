@@ -11,5 +11,5 @@ $( document ).ready(function() {
     $.get( "/notifications/counter.json", function( data ) {
       $( ".navbar-nav .badge.notifications_count" ).html( data.notifications_count );
     });
-  }, 300000); //5min
+  }, 180000); //3min
 });

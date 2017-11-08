@@ -12,7 +12,7 @@ class NotificationsController < ApplicationController
 
   private
     def clean_old_notifications
-      notifications.where("created_at < ?", 2.days.ago).where(visualized: true).destroy_all
+      notifications.where("created_at < ?", 3.days.ago).where(visualized: true).destroy_all
     end
 
     def mark_all_as_visualized
