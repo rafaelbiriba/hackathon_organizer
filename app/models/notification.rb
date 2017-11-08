@@ -4,9 +4,9 @@ class Notification < ApplicationRecord
 
   self.inheritance_column = :_type_disabled
 
-  belongs_to :user_related, class_name: "User"
+  belongs_to :user_related, class_name: "User", optional: true
   belongs_to :user_target, class_name: "User"
-  belongs_to :project
+  belongs_to :project, optional: true
   belongs_to :comment, optional: true
 
   scope :not_visualized, -> { where(visualized: false) }
@@ -49,6 +49,16 @@ class Notification < ApplicationRecord
         link: project_path(project, anchor: "subscribers-list"),
         date: created_at
       }
+
+    when "new_feature_comments"
+      {
+        visualized: visualized,
+        title: "New features: Notification and Comments",
+        text: "Enjoy your new comments section at your project page. It's the perfect opportunity to discuss the details before we start hacking!",
+        link: nil,
+        date: created_at
+      }
+
     else
       {}
     end

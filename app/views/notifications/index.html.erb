@@ -9,7 +9,7 @@
           <span class="glyphicon glyphicon-star"></span>
         <% end %>
         <%= notification[:title] %>
-        <small><%= human_readable_date(notification[:date]) %> - <a href="<%= notification[:link] %>">(Click to see more)</a></small></h4>
+        <small><%= human_readable_date(notification[:date]) %><% if notification[:link] %> - <a href="<%= notification[:link] %>">(Click to see more)</a><% end %></small></h4>
       <%= notification[:text].html_safe %>
     </li>
 <% end %>
