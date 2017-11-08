@@ -34,7 +34,7 @@
           projectLineColor = "success" if subscribers_count >= 1
         %>
         <%= content_tag :tr, class: projectLineColor, data: { on_click: project_url(project) } do %>
-          <td><a href="#"><%= truncate(project.title, length: 70) %></a></td>
+          <td><a href="<%= project_url(project) %>"><%= truncate(project.title, length: 70) %></a></td>
           <td><%= truncate(project.description, length: 200) %></td>
           <td>
             <% if subscribers_count == 0 %>
@@ -42,11 +42,11 @@
             <% end %>
 
             <% project.subscribers.each do |subscribe| %>
-              <img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
+              <a href="<%= project_url(project, anchor: "subscribers-list") %>" title="Subscribers List" alt="Subscribers List"><img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>"></a>
             <% end %>
           </td>
           <td>
-            <span class="badge"><%= project.comments.count %></span>
+            <a href="<%= project_url(project, anchor: "comments") %>" title="Comments" alt="Comments"><span class="badge"><%= project.comments.count %></span></a>
           </td>
           <td><img src="<%= project.owner.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= project.owner.name %>" title="<%= project.owner.name %>"> </td>
         <% end %>
