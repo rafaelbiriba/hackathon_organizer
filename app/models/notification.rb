@@ -30,7 +30,7 @@ class Notification < ApplicationRecord
         visualized: visualized,
         title: "User subscribed",
         text: "The user <b>#{user_related.name}</b> just <b>subscribed</b> to the project <b>#{project_title}</b>",
-        link: project_path(project),
+        link: project_path(project, anchor: "subscribers-list"),
         date: created_at
       }
     when "user_unsubscribed"
@@ -38,7 +38,7 @@ class Notification < ApplicationRecord
         visualized: visualized,
         title: "User unsubscribed",
         text: "The user <b>#{user_related.name}</b> just <b>unsubscribed</b> from the project <b>#{project_title}</b>",
-        link: project_path(project),
+        link: project_path(project, anchor: "subscribers-list"),
         date: created_at
       }
     when "user_unsubscribed_by_admin"
@@ -46,7 +46,7 @@ class Notification < ApplicationRecord
         visualized: visualized,
         title: "User unsubscribed by admin",
         text: "The <b>ADMIN user</b> just <b>unsubscribed</b> <b>#{user_related.name}</b> from the project <b>#{project_title}</b>",
-        link: project_path(project),
+        link: project_path(project, anchor: "subscribers-list"),
         date: created_at
       }
     else
