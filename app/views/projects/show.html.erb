@@ -38,6 +38,25 @@
   </dl>
   <br/>
 
+  <% thumbs_up_people = @project.thumbs_up.collect(&:creator) %>
+  <h2><span class="glyphicon glyphicon-thumbs-up"></span> <%= thumbs_up_people.count %> Likes:
+    <% thumbs_up_people.each do |user| %>
+      <img src="<%= user.profile_image_url %>" class="img-circle" width="30px" alt="<%= user.name %>" title="<%= user.name %>">
+    <% end %>
+  </h2>
+  <% if thumbs_up_people.include?(current_user) %>
+    <%= link_to remove_thumbs_up_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-thumbs-down"></span>
+      Remove my thumbs up
+    <% end %>
+  <% else %>
+    <%= link_to add_thumbs_up_project_url(@project), class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-thumbs-up"></span>
+      Give thumbs up
+    <% end %>
+  <% end %>
+  <br />
+
   <h2>Subscribed to work on this project:</h2>
   <% if @project.subscribers.include?(current_user) %>
     <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>

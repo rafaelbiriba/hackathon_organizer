@@ -72,6 +72,27 @@ class ProjectsController < ApplicationController
     redirect_to @project, notice: "#{user.name} was removed from the subscribed list."
   end
 
+  def add_thumbs_up
+    if user_already_gave_thumbs_up?
+      redirect_to @project, flash: { error: "You already gave the thumbs up for this project." }
+    else
+      @project.thumbs_up.create!(creator: current_user)
+      send_notifications("add_thumbs_up")
+      redirect_to @project, notice: "Your thumbs up was successfully saved."
+    end
+  end
+
+
+  def remove_thumbs_up
+    if user_already_gave_thumbs_up?
+      @project.thumbs_up.where(creator: current_user).destroy_all
+      send_notifications("remove_thumbs_up")
+      redirect_to @project, notice: "Your thumbs up was successfully removed."
+    else
+      redirect_to @project, flash: { error: "You did not gave the thumbs up for this project." }
+    end
+  end
+
   private
 
   def apply_filters!
@@ -95,27 +116,31 @@ class ProjectsController < ApplicationController
     end
   end
 
-    def validate_admin_user
-      return if current_user.is_admin
-      flash[:error] = "You are not an admin."
-      redirect_to root_url
-    end
+  def validate_admin_user
+    return if current_user.is_admin
+    flash[:error] = "You are not an admin."
+    redirect_to root_url
+  end
 
-    def user_is_already_subscribed?(user)
-      @project.subscribers.include?(user)
-    end
+  def user_already_gave_thumbs_up?
+    @project.thumbs_up.where(creator: current_user).exists?
+  end
 
-    def set_project
-      @project = Project.find(params[:id])
-    end
+  def user_is_already_subscribed?(user)
+    @project.subscribers.include?(user)
+  end
 
-    def check_project_ownership
-      return if @project.owner == current_user || current_user.is_admin
-      flash[:error] = "Project doesn't belongs to you."
-      redirect_to projects_url
-    end
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
-    def project_params
-      params.require(:project).permit(:title, :description)
-    end
+  def check_project_ownership
+    return if @project.owner == current_user || current_user.is_admin
+    flash[:error] = "Project doesn't belongs to you."
+    redirect_to projects_url
+  end
+
+  def project_params
+    params.require(:project).permit(:title, :description)
+  end
 end

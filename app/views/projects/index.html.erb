@@ -21,7 +21,7 @@
         <th class="col-md-3">Project name</th>
         <th class="col-md-8">Project description</th>
         <th class="col-md-1">How many subscribers</th>
-        <th class="col-md-1">Comments</th>
+        <th class="col-md-1">Social Stats</th>
         <th class="col-md-1">Created by</th>
       </tr>
     </thead>
@@ -46,7 +46,9 @@
             <% end %>
           </td>
           <td>
-            <a href="<%= project_url(project, anchor: "comments") %>" title="Comments" alt="Comments"><span class="badge"><%= project.comments.count %></span></a>
+            <a href="<%= project_url(project, anchor: "comments") %>" title="Comments" alt="Comments"><span class="label label-default"><%= project.comments.count %> comments</span></a><br/>
+            <a href="<%= project_url(project) %>" title="Comments" alt="Comments"><span class="label label-primary"><span class="glyphicon glyphicon-thumbs-up"></span> <%= project.thumbs_up.count %> likes</span></a>
+          </br/>
           </td>
           <td><img src="<%= project.owner.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= project.owner.name %>" title="<%= project.owner.name %>"> </td>
         <% end %>
