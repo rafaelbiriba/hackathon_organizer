@@ -9,6 +9,8 @@ class Notification < ApplicationRecord
   belongs_to :project, optional: true
   belongs_to :comment, optional: true
 
+  store :extras
+
   scope :not_visualized, -> { where(visualized: false) }
 
   def project_title
@@ -72,6 +74,14 @@ class Notification < ApplicationRecord
         title: "Thumbs up removed",
         text: "The user <b>#{user_related.name}</b> just removed the <b>thumbs up</b> from the project <b>#{project_title}</b>",
         link: project_path(project)
+      }
+
+    when "free_text"
+      return {} if extras["title"].blank? || extras["text"].blank?
+      {
+        title: extras["title"],
+        text: extras["text"],
+        link: extras["link"]
       }
 
     else
