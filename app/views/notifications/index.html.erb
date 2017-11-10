@@ -2,9 +2,15 @@
   <h1>Notifications</h1>
 </div>
 
-<ul class="list-group">
+<ul class="list-group notifications">
 <% @notifications.map(&:to_hash).each do |notification| %>
-    <li class="list-group-item">
+
+    <% if notification[:link] %>
+      <li class="list-group-item link" data-on-click="<%= notification[:link] %>">
+    <% else %>
+      <li class="list-group-item">
+    <% end %>
+
       <h4><% if !notification[:visualized] %>
           <span class="glyphicon glyphicon-star"></span>
         <% end %>

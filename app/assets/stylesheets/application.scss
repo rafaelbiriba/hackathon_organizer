@@ -36,3 +36,11 @@
     }
   }
 }
+
+.badge.notifications_count {
+  background-color: red;
+}
+
+.notifications .list-group-item.link {
+  cursor: pointer;
+}
