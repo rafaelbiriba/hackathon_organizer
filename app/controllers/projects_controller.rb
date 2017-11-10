@@ -99,18 +99,18 @@ class ProjectsController < ApplicationController
     if params["filter"] == "created_by_me"
       @projects = @projects.where(owner_id: current_user.id)
     elsif params["filter"] == "subscribed"
-      @projects = @projects.where("users.id = ?", current_user.id)
+      @projects = @projects.left_outer_joins(:subscribers).where("users.id = ?", current_user.id)
     end
   end
 
   def load_projects_based_on_order
-    project = Project.left_outer_joins(:subscribers).group("projects.id")
+    project = Project.group("projects.id")
     if params["order"] == "top_likes"
       project.left_outer_joins(:thumbs_up).select("projects.*, count(thumbs_up.id) as thumbs_up_count").order("thumbs_up_count DESC").order("projects.id DESC")
     elsif params["order"] == "top_comments"
       project.left_outer_joins(:comments).select("projects.*, count(comments.id) as comments_count").order("comments_count DESC").order("projects.id DESC")
     else
-      project.select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC")
+      project.left_outer_joins(:subscribers).select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC")
     end
   end
 
