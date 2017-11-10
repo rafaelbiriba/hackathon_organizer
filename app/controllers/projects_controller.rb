@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :validate_admin_user, only: [:admin_force_remove_subscriber]
 
   def index
-    @projects = projects_default_filter
+    @projects = load_projects_based_on_order
     @total_count = @projects.uniq.count
     apply_filters!
     @projects = @projects.uniq
@@ -103,8 +103,15 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def projects_default_filter
-    Project.left_outer_joins(:subscribers).group("projects.id").select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC")
+  def load_projects_based_on_order
+    project = Project.left_outer_joins(:subscribers).group("projects.id")
+    if params["order"] == "top_likes"
+      project.left_outer_joins(:thumbs_up).select("projects.*, count(thumbs_up.id) as thumbs_up_count").order("thumbs_up_count DESC").order("projects.id DESC")
+    elsif params["order"] == "top_comments"
+      project.left_outer_joins(:comments).select("projects.*, count(comments.id) as comments_count").order("comments_count DESC").order("projects.id DESC")
+    else
+      project.select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC")
+    end
   end
 
   def send_notifications(notification_type)

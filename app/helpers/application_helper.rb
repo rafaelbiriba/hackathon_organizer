@@ -15,4 +15,13 @@ module ApplicationHelper
     return "btn-primary" if params[:filter] == filter_name
     "btn-default"
   end
+
+  def project_list_order_class(order_name=nil)
+    return "btn-primary" if params[:order] == order_name
+    "btn-default"
+  end
+
+  def projects_filters_params
+    {filter: params[:filter], order: params[:order]}.compact
+  end
 end
