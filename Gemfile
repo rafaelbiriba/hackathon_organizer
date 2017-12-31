@@ -15,6 +15,9 @@ gem "omniauth-google-oauth2"
 
 group :development, :test do
   gem "sqlite3"
+  gem "rspec"
+  gem "rspec-rails"
+  gem "shoulda-matchers"
   gem "byebug"
 end
 
