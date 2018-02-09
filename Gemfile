@@ -20,6 +20,7 @@ group :development, :test do
   gem "rspec"
   gem "rspec-rails"
   gem "shoulda-matchers"
+  gem "shoulda-callback-matchers"
   gem "byebug"
 end
 
