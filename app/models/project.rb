@@ -4,7 +4,7 @@ class Project < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :thumbs_up, dependent: :destroy
 
-  validates_presence_of  :title, :description
+  validates_presence_of :title, :description
 
   before_destroy :destroy_notifications
 

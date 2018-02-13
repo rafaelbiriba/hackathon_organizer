@@ -22,6 +22,7 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "shoulda-callback-matchers"
   gem "byebug"
+  gem "factory_bot_rails"
 end
 
 group :production do

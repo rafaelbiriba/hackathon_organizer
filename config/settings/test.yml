@@ -1,0 +1,5 @@
+google_oauth_id: oauth_id
+google_oauth_secret: secret
+company_name: Test Company
+hackathon_name: Hackathon 2017
+allowed_domain: example.com

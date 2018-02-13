@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe User do
+  after { Settings.reload! }
+
   describe "email validations" do
     context "when the domain whitelist is empty" do
       before { Settings.allowed_domain = [] }
