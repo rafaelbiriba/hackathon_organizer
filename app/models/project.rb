@@ -15,6 +15,8 @@ class Project < ApplicationRecord
     users.uniq
   end
 
+  private
+
   def destroy_notifications
     Notification.where(project: self).destroy_all
   end

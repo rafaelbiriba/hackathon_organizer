@@ -7,7 +7,15 @@ RSpec.describe Project do
   end
 
   describe "callbacks" do
-    it { is_expected.to callback(:destroy_notifications).before(:destroy) }
+    context "before destroy" do
+      let(:project) { create(:project) }
+      let!(:notification) { create(:notification_project, project: project) }
+
+        it "should remove all notifications related to the project" do
+          project.destroy
+          expect(Notification.count).to eq 0
+        end
+    end
   end
 
   describe "relationships" do
