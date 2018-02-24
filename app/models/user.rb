@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                :integer          not null, primary key
+#  name              :string
+#  email             :string           indexed
+#  profile_image_url :text
+#  is_admin          :boolean
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 class User < ApplicationRecord
 
   has_many :projects, foreign_key: :owner_id

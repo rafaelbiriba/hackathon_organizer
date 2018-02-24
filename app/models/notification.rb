@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id              :integer          not null, primary key
+#  project_id      :integer          indexed
+#  comment_id      :integer          indexed
+#  user_related_id :integer          indexed
+#  user_target_id  :integer          indexed, indexed => [visualized]
+#  visualized      :boolean          default(FALSE), indexed => [user_target_id]
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  extras          :text
+#  type            :string           indexed
+#
+
 class Notification < ApplicationRecord
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::TextHelper

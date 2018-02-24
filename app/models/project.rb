@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  owner_id    :integer          indexed
+#
+
 class Project < ApplicationRecord
   belongs_to :owner, class_name: "User"
   has_and_belongs_to_many :subscribers, class_name: "User"
