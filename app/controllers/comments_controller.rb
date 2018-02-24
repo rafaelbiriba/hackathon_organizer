@@ -18,11 +18,8 @@ class CommentsController < ApplicationController
 
     def send_notifications
       @project.all_involved_users(except_user: current_user, include_commenters: true).each do |user|
-        Notification.create!(notification_type: "new_comment",
-                             user_related: current_user,
-                             user_target: user,
-                             project: @project,
-                             comment: @comment)
+        Notifications::NewComment.create!(user_related: current_user, user_target: user,
+                                          project: @project, comment: @comment)
       end
     end
 

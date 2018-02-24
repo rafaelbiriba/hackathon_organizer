@@ -3,20 +3,19 @@
 </div>
 
 <ul class="list-group notifications">
-<% @notifications.map(&:to_hash).each do |notification| %>
-
-    <% if notification[:link] %>
-      <li class="list-group-item link" data-on-click="<%= notification[:link] %>">
+<% @notifications.each do |notification| %>
+    <% unless notification.link.blank? %>
+      <li class="list-group-item link" data-on-click="<%= notification.link %>">
     <% else %>
       <li class="list-group-item">
     <% end %>
 
-      <h4><% if !notification[:visualized] %>
-          <span class="glyphicon glyphicon-star"></span>
-        <% end %>
-        <%= notification[:title] %>
-        <small><%= human_readable_date(notification[:date]) %><% if notification[:link] %> - <a href="<%= notification[:link] %>">(Click to see more)</a><% end %></small></h4>
-      <%= notification[:text].html_safe %>
+      <h4><% unless notification.visualized %>
+            <span class="glyphicon glyphicon-star"></span>
+          <% end %>
+          <%= notification.title %>
+          <small><%= human_readable_date(notification.created_at) %><% unless notification.link.blank? %> - <a href="<%= notification.link %>">(Click to see more)</a><% end %></small></h4>
+          <%= notification.text.html_safe %>
     </li>
 <% end %>
 </ul>

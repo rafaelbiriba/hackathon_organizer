@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
       redirect_to @project, flash: { error: "You are already subscribed to this project."  }
     else
       @project.subscribers << current_user
-      send_notifications("user_subscribed")
+      send_notifications(Notifications::UserSubscribed)
       redirect_to @project, notice: "You was successfully subscribed to this project."
     end
   end
@@ -58,7 +58,7 @@ class ProjectsController < ApplicationController
   def remove_subscriber
     if user_is_already_subscribed?(current_user)
       @project.subscribers.destroy(current_user)
-      send_notifications("user_unsubscribed")
+      send_notifications(Notifications::UserUnsubscribed)
       redirect_to @project, notice: "You was successfully removed from the subscribed list."
     else
       redirect_to @project, flash: { error: "You are not subscribed to this project." }
@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
   def admin_force_remove_subscriber
     user = User.find(params[:user_id])
     @project.subscribers.destroy(user)
-    send_notifications("user_unsubscribed_by_admin")
+    send_notifications(Notifications::UserUnsubscribedByAdmin)
     redirect_to @project, notice: "#{user.name} was removed from the subscribed list."
   end
 
@@ -77,7 +77,7 @@ class ProjectsController < ApplicationController
       redirect_to @project, flash: { error: "You already gave the thumbs up for this project." }
     else
       @project.thumbs_up.create!(creator: current_user)
-      send_notifications("add_thumbs_up")
+      send_notifications(Notifications::NewThumbsUp)
       redirect_to @project, notice: "Your thumbs up was successfully saved."
     end
   end
@@ -86,7 +86,7 @@ class ProjectsController < ApplicationController
   def remove_thumbs_up
     if user_already_gave_thumbs_up?
       @project.thumbs_up.where(creator: current_user).destroy_all
-      send_notifications("remove_thumbs_up")
+      send_notifications(Notifications::RemovedThumbsUp)
       redirect_to @project, notice: "Your thumbs up was successfully removed."
     else
       redirect_to @project, flash: { error: "You did not gave the thumbs up for this project." }
@@ -114,12 +114,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def send_notifications(notification_type)
+  def send_notifications(notification_klass)
     @project.all_involved_users(except_user: current_user).each do |user|
-      Notification.create!(notification_type: notification_type,
-                           user_related: current_user,
-                           user_target: user,
-                           project: @project)
+      notification_klass.create!(user_related: current_user, user_target: user, project: @project)
     end
   end
 
