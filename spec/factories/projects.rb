@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :project do
-    title "Title"
-    description "Description"
+    title { Faker::Lorem.sentence(15) }
+    description { Faker::Lorem.sentence(30) }
     association :owner, factory: :user
   end
 end
