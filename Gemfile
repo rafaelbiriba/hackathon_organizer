@@ -24,6 +24,7 @@ group :development, :test do
   gem "shoulda-callback-matchers"
   gem "byebug"
   gem "factory_bot_rails"
+  gem "annotate"
 end
 
 group :production do
