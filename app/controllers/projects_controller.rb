@@ -109,6 +109,8 @@ class ProjectsController < ApplicationController
       project.left_outer_joins(:thumbs_up).select("projects.*, count(thumbs_up.id) as thumbs_up_count").order("thumbs_up_count DESC").order("projects.id DESC")
     elsif params["order"] == "top_comments"
       project.left_outer_joins(:comments).select("projects.*, count(comments.id) as comments_count").order("comments_count DESC").order("projects.id DESC")
+    elsif params["order"] == "top_subscribers"
+      project.left_outer_joins(:subscribers).select("projects.*, count(users.id) as users_count").order("users_count DESC").order("projects.id ASC")
     else
       project.left_outer_joins(:subscribers).select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC")
     end

@@ -22,6 +22,7 @@
       <a href="<%= projects_url(projects_filters_params.merge(order: nil)) %>"><button type="button" class="btn <%= project_list_order_class %>">Default order</button></a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_comments")) %>"><button type="button" class="btn <%= project_list_order_class("top_comments") %>">Top Comments</button></a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_likes")) %>"><button type="button" class="btn <%= project_list_order_class("top_likes") %>">Top Likes</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(order: "top_subscribers")) %>"><button type="button" class="btn <%= project_list_order_class("top_subscribers") %>">Top Subscribers</button></a>
     </div>
   </div>
 </div>
