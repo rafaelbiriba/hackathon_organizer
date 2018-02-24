@@ -11,15 +11,15 @@ class NotificationsController < ApplicationController
   end
 
   private
-    def clean_old_notifications
-      notifications.where("created_at < ?", 3.days.ago).where(visualized: true).destroy_all
-    end
+  def clean_old_notifications
+    notifications.old_visualized_notifications.destroy_all
+  end
 
-    def mark_all_as_visualized
-      notifications.update_all(visualized: true)
-    end
+  def mark_all_as_visualized
+    notifications.update_all(visualized: true)
+  end
 
-    def notifications
-      @notifications ||= current_user.notifications.order("id DESC")
-    end
+  def notifications
+    @notifications ||= current_user.notifications.order("id DESC")
+  end
 end
