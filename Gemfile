@@ -14,6 +14,7 @@ gem "omniauth-google-oauth2"
 
 
 group :development, :test do
+  gem "rubocop", require: false
   gem "coveralls", require: false
   gem "simplecov", require: false
   gem "sqlite3"
