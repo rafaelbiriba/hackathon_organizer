@@ -10,16 +10,11 @@ class Notification < ApplicationRecord
   store :extras
 
   scope :not_visualized, -> { where(visualized: false) }
-  scope :old_notifications_visualized, -> {
+  scope :old_visualized_notifications, -> {
     where("created_at < ? AND visualized = ?", 3.days.ago, true)
   }
 
-  def self.clean_old_notifications
-
-  end
-
   private
-
   def project_title
     truncate(project.title, length: 70)
   end

@@ -4,6 +4,7 @@ FactoryBot.define do
   end
 
   factory :user do
+    name "Mr. Awesome Bot"
     email
   end
 end
