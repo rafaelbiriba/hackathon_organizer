@@ -100,6 +100,10 @@ class ProjectsController < ApplicationController
       @projects = @projects.where(owner_id: current_user.id)
     elsif params["filter"] == "subscribed"
       @projects = @projects.left_outer_joins(:subscribers).where("users.id = ?", current_user.id)
+    elsif params["filter"] == "liked"
+      @projects = @projects.left_outer_joins(:thumbs_up).where("creator_id = ?", current_user.id)
+    elsif params["filter"] == "commenting"
+      @projects = @projects.left_outer_joins(:comments).where("comments.owner_id = ?", current_user.id)
     end
   end
 

@@ -8,18 +8,18 @@
 
 <div>
   <div class="pull-left">
-    <b>Filter: </b>
     <div class="btn-group">
-      <a href="<%= projects_url(projects_filters_params.merge(filter: nil)) %>"><button type="button" class="btn <%= project_list_filter_class %>">Default filter</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(filter: "created_by_me")) %>"><button type="button" class="btn <%= project_list_filter_class("created_by_me") %>">Created by me</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(filter: "subscribed")) %>"><button type="button" class="btn <%= project_list_filter_class("subscribed") %>">I am subscribed</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: nil)) %>"><button type="button" class="btn <%= project_list_filter_class %>">Default</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "created_by_me")) %>"><button type="button" class="btn <%= project_list_filter_class("created_by_me") %>">I created</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "subscribed")) %>"><button type="button" class="btn <%= project_list_filter_class("subscribed") %>">I subscribed</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "liked")) %>"><button type="button" class="btn <%= project_list_filter_class("liked") %>">I liked</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "commenting")) %>"><button type="button" class="btn <%= project_list_filter_class("commenting") %>">I am commenting</button></a>
     </div>
   </div>
 
   <div class="pull-right">
-    <b>Order: </b>
     <div class="btn-group">
-      <a href="<%= projects_url(projects_filters_params.merge(order: nil)) %>"><button type="button" class="btn <%= project_list_order_class %>">Default order</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(order: nil)) %>"><button type="button" class="btn <%= project_list_order_class %>">Default</button></a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_comments")) %>"><button type="button" class="btn <%= project_list_order_class("top_comments") %>">Top Comments</button></a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_likes")) %>"><button type="button" class="btn <%= project_list_order_class("top_likes") %>">Top Likes</button></a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_subscribers")) %>"><button type="button" class="btn <%= project_list_order_class("top_subscribers") %>">Top Subscribers</button></a>
@@ -42,16 +42,11 @@
 
     <tbody>
       <% @projects.each do |project| %>
-        <%
-          subscribers_count = project.subscribers.count
-          projectLineColor = ""
-          projectLineColor = "success" if subscribers_count >= 1
-        %>
-        <%= content_tag :tr, class: projectLineColor, data: { on_click: project_url(project) } do %>
+        <%= content_tag :tr, data: { on_click: project_url(project) } do %>
           <td><a href="<%= project_url(project) %>"><%= truncate(project.title, length: 70) %></a></td>
           <td><%= truncate(project.description, length: 200) %></td>
           <td>
-            <% if subscribers_count == 0 %>
+            <% if project.subscribers.count == 0 %>
               <span class="label label-warning">Nobody yet</span>
             <% end %>
 
