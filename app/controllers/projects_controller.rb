@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
     @projects = load_projects_based_on_order
     @total_count = @projects.uniq.count
     apply_filters!
+    apply_search!
     @projects = @projects.uniq
   end
 
@@ -105,6 +106,11 @@ class ProjectsController < ApplicationController
     elsif params["filter"] == "commenting"
       @projects = @projects.left_outer_joins(:comments).where("comments.owner_id = ?", current_user.id)
     end
+  end
+
+  def apply_search!
+    return unless params[:search]
+    @projects = @projects.where("title LIKE ? OR description LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
   end
 
   def load_projects_based_on_order

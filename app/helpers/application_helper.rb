@@ -22,6 +22,6 @@ module ApplicationHelper
   end
 
   def projects_filters_params
-    {filter: params[:filter], order: params[:order]}.compact
+    {filter: params[:filter], order: params[:order], search: params[:search]}.compact
   end
 end

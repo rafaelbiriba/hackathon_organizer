@@ -3,65 +3,74 @@
     <span class="glyphicon glyphicon-plus"></span>
     New Project
   <% end %>
-  <h1>Projects / Ideas (<%= @projects.count %><% if params["filter"] %> of <%= @total_count %><% end %>)</h1>
+  <h1>Projects and Ideas <span class="badge projects_badge"><%= @projects.count %><% if params["filter"] || params["search"] %> of <%= @total_count %><% end %></span></h1>
 </div>
 
 <div>
   <div class="pull-left">
     <div class="btn-group">
-      <a href="<%= projects_url(projects_filters_params.merge(filter: nil)) %>"><button type="button" class="btn <%= project_list_filter_class %>">Default</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(filter: "created_by_me")) %>"><button type="button" class="btn <%= project_list_filter_class("created_by_me") %>">I created</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(filter: "subscribed")) %>"><button type="button" class="btn <%= project_list_filter_class("subscribed") %>">I subscribed</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(filter: "liked")) %>"><button type="button" class="btn <%= project_list_filter_class("liked") %>">I liked</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(filter: "commenting")) %>"><button type="button" class="btn <%= project_list_filter_class("commenting") %>">I am commenting</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: nil)) %>" class="btn btn-sm <%= project_list_filter_class %>">Default Filter</a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "created_by_me")) %>" class="btn btn-sm <%= project_list_filter_class("created_by_me") %>">I created</a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "subscribed")) %>" class="btn btn-sm <%= project_list_filter_class("subscribed") %>">I subscribed</a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "liked")) %>" class="btn btn-sm <%= project_list_filter_class("liked") %>">I liked</a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: "commenting")) %>" class="btn btn-sm <%= project_list_filter_class("commenting") %>">I am commenting</a>
     </div>
   </div>
 
   <div class="pull-right">
     <div class="btn-group">
-      <a href="<%= projects_url(projects_filters_params.merge(order: nil)) %>"><button type="button" class="btn <%= project_list_order_class %>">Default</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(order: "top_comments")) %>"><button type="button" class="btn <%= project_list_order_class("top_comments") %>">Top Comments</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(order: "top_likes")) %>"><button type="button" class="btn <%= project_list_order_class("top_likes") %>">Top Likes</button></a>
-      <a href="<%= projects_url(projects_filters_params.merge(order: "top_subscribers")) %>"><button type="button" class="btn <%= project_list_order_class("top_subscribers") %>">Top Subscribers</button></a>
+      <a href="<%= projects_url(projects_filters_params.merge(order: nil)) %>" class="btn btn-sm <%= project_list_order_class %>">Default Order</a>
+      <a href="<%= projects_url(projects_filters_params.merge(order: "top_comments")) %>" class="btn btn-sm <%= project_list_order_class("top_comments") %>">Top Comments</a>
+      <a href="<%= projects_url(projects_filters_params.merge(order: "top_likes")) %>" class="btn btn-sm <%= project_list_order_class("top_likes") %>">Top Likes</a>
+      <a href="<%= projects_url(projects_filters_params.merge(order: "top_subscribers")) %>" class="btn btn-sm <%= project_list_order_class("top_subscribers") %>">Top Subscribers</a>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <p>
+    <form role="search">
+      <div class="input-group add-on">
+        <input class="form-control" placeholder="Search something..." name="search" id="search" type="text" value="<%= params[:search] %>">
+        <div class="input-group-btn">
+          <% if params[:search] %>
+            <a href="<%= projects_url(projects_filters_params.merge(search: nil)) %>" class="btn btn-danger">Clear search</i></a>
+          <% end %>
+          <% if params[:filter] %>
+            <input type="hidden" name="filter" value="<%= params[:filter] %>" />
+          <% end %>
+          <% if params[:order] %>
+            <input type="hidden" name="order" value="<%= params[:order] %>" />
+          <% end %>
+          <button class="btn btn-primary" type="submit">Search <i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p>
+
+<% @projects.each do |project| %>
+<div class="panel panel-default projects-list" data-on-click="<%= project_url(project) %>">
+  <div class="panel-heading">
+    <a href="<%= project_url(project) %>" title="<%= project.title %>" alt="<%= project.title %>"><h3 class="panel-title"><%= truncate(project.title, length: 120) %></h3></a>
+  </div>
+  <div class="panel-body">
+    <%= truncate(project.description, length: 400) %>
+      <div class="text-right labels">
+        <a href="<%= project_url(project, anchor: "subscribers-list") %>" title="Subscribers List" alt="Subscribers List">
+          <span class="label label-dark">Subscribers:
+            <% if project.subscribers.count == 0 %>
+              <span class="label label-warning">Nobody</span>
+            <% end %>
+            <% project.subscribers.each do |subscribe| %>
+              <img src="<%= subscribe.profile_image_url %>" class="img-circle" width="20px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>">
+            <% end %>
+          </span>
+        </a>
+        <span class="label label-dark">Creator: <img src="<%= project.owner.profile_image_url %>" class="img-circle" width="20px" alt="<%= project.owner.name %>" title="<%= project.owner.name %>"></span>
+        <a href="<%= project_url(project) %>" title="Likes" alt="Likes"><span class="label label-primary"><span class="glyphicon glyphicon-thumbs-up"></span> <%= project.thumbs_up.count %> likes</span></a>
+        <a href="<%= project_url(project, anchor: "comments") %>" title="Comments" alt="Comments"><span class="label label-default"><%= project.comments.count %> comments</span></a>
     </div>
   </div>
 </div>
-
-<br /><br />
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover projects-list">
-    <thead>
-      <tr>
-        <th class="col-md-3">Project name</th>
-        <th class="col-md-8">Project description</th>
-        <th class="col-md-1">How many subscribers</th>
-        <th class="col-md-1">Social Stats</th>
-        <th class="col-md-1">Created by</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @projects.each do |project| %>
-        <%= content_tag :tr, data: { on_click: project_url(project) } do %>
-          <td><a href="<%= project_url(project) %>"><%= truncate(project.title, length: 70) %></a></td>
-          <td><%= truncate(project.description, length: 200) %></td>
-          <td>
-            <% if project.subscribers.count == 0 %>
-              <span class="label label-warning">Nobody yet</span>
-            <% end %>
-
-            <% project.subscribers.each do |subscribe| %>
-              <a href="<%= project_url(project, anchor: "subscribers-list") %>" title="Subscribers List" alt="Subscribers List"><img src="<%= subscribe.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= subscribe.name %>" title="<%= subscribe.name %>"></a>
-            <% end %>
-          </td>
-          <td>
-            <a href="<%= project_url(project) %>" title="Likes" alt="Likes"><span class="label label-primary"><span class="glyphicon glyphicon-thumbs-up"></span> <%= project.thumbs_up.count %> likes</span></a>
-            <a href="<%= project_url(project, anchor: "comments") %>" title="Comments" alt="Comments"><span class="label label-default"><%= project.comments.count %> comments</span></a><br/>
-          </br/>
-          </td>
-          <td><img src="<%= project.owner.profile_image_url %>" class="img-thumbnail" width="30px" alt="<%= project.owner.name %>" title="<%= project.owner.name %>"> </td>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<% end %>
