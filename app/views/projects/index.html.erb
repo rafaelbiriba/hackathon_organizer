@@ -3,7 +3,7 @@
     <span class="glyphicon glyphicon-plus"></span>
     New Project
   <% end %>
-  <h1>Projects and Ideas <span class="badge projects_badge"><%= @projects.count %><% if params["filter"] || params["search"] %> of <%= @total_count %><% end %></span></h1>
+  <h1>Projects and Ideas <span class="label label-default"><%= @projects.count %><% if params["filter"] || params["search"] %> of <%= @total_count %><% end %></span></h1>
 </div>
 
 <div>
