@@ -18,114 +18,135 @@
         <span class="glyphicon glyphicon-pencil"></span>
         Edit this project
       <% end %>
-      <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
+      <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger btn-sm' do %>
         <span class="glyphicon glyphicon-remove"></span>
         Delete this project
       <% end %>
     <% end %>
   </div>
-  <h1><%= @project.title %></h1>
-  <hr>
 
-  <dl class="dl-horizontal">
-    <dt>Description:</dt>
-    <dd><%= simple_format(@project.description) %></dd>
-    <br/><br/>
-    <dt>Created at:</dt>
-    <dd><%= human_readable_date(@project.created_at) %></dd>
-    <dt>Created by:</dt>
-    <dd><img src="<%= @project.owner.profile_image_url %>" class="img-thumbnail" width="60px"> <%= @project.owner.name %> (<%= @project.owner.email %>)</dd>
-  </dl>
-  <br/>
-
-  <% thumbs_up_people = @project.thumbs_up.collect(&:creator) %>
-  <h2><span class="glyphicon glyphicon-thumbs-up"></span> <%= thumbs_up_people.count %> Likes:
-    <% thumbs_up_people.each do |user| %>
-      <img src="<%= user.profile_image_url %>" class="img-circle" width="30px" alt="<%= user.name %>" title="<%= user.name %>">
-    <% end %>
-  </h2>
-  <% if thumbs_up_people.include?(current_user) %>
-    <%= link_to remove_thumbs_up_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-thumbs-down"></span>
-      Remove my thumbs up
-    <% end %>
-  <% else %>
-    <%= link_to add_thumbs_up_project_url(@project), class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-thumbs-up"></span>
-      Give thumbs up
-    <% end %>
-  <% end %>
   <br />
 
-  <h2>Subscribed to work on this project:</h2>
-  <% if @project.subscribers.include?(current_user) %>
-    <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
-      <span class="glyphicon glyphicon-ban-circle"></span>
-      Remove myself from this project
-    <% end %>
-  <% else %>
-    <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-heart"></span>
-      I want to work on this project
-    <% end %>
-  <% end %>
+  <% thumbs_up_people = @project.thumbs_up.collect(&:creator) %>
 
-  <% if @project.subscribers.empty? %>
-    <br/><br/>
-    <h5>Nobody yet :( Why you don't invite someone to join?</h5>
-  <% end %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= @project.title %></h3>
+    </div>
+    <div class="panel-body">
+      <%= simple_format(@project.description) %>
 
-  <div class="subscribers-list" id="subscribers-list">
-    <% @project.subscribers.each do |user| %>
-      <div class="media pull-left">
-        <p class="pull-left">
-          <img class="media-object" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>">
-        </p>
-        <div class="media-body">
-          <h4 class="media-heading"><%= user.name %>
-            <% if current_user_admin_power %>
-              <%= link_to admin_force_remove_subscriber_project_url(@project, {user_id: user.id}), method: :delete, data: { confirm: "Are you sure to remove #{user.name} from this project?" }, class: 'btn btn-danger' do %>
-                <span class="glyphicon glyphicon-ban-circle"></span>
-                Remove <%= truncate(user.name, length: 10) %> from this project
-              <% end %>
-            <% end %>
-
-          </h4>
-          <p><%= user.email %></p>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="clearfix"></div>
-    <br/>
-  <h2 id="comments">Comments:</h2>
-
-
-  <%= form_for(@comment, url: project_comments_path(project_id: @project.id)) do |f| %>
-    <% if @comment.errors.any? %>
-      <div class="alert alert-danger alert-dismissable" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4><%= pluralize(@comment.errors.count, "error") %> prohibited this project from being saved:</h4>
-
-        <ul>
-        <% @comment.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+      <p>
+        <div class="pull-left">
+        <% if thumbs_up_people.include?(current_user) %>
+          <%= link_to remove_thumbs_up_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger btn-sm' do %>
+            <span class="glyphicon glyphicon-thumbs-down"></span>
+            Remove my thumbs up
+          <% end %>
+        <% else %>
+          <%= link_to add_thumbs_up_project_url(@project), class: 'btn btn-success btn-sm' do %>
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            Give thumbs up
+          <% end %>
         <% end %>
-        </ul>
-      </div>
-    <% end %>
 
-    <% @project.comments.each do |comment| %>
-      <dl class="dl-horizontal">
-        <dt id="comment-<%= comment.id %>"><img src="<%= comment.owner.profile_image_url %>" class="img-thumbnail" width="60px" alt="<%= comment.owner.name %>" title="<%= comment.owner.name %>"></dt>
-        <dd><strong><a href="#comment-<%= comment.id %>"><%= comment.owner.name %> commented at <%= human_readable_date(comment.updated_at) %></a></strong><br /><%= comment.body %></dd>
-      </dl>
-    <% end %>
+        <% if @project.subscribers.include?(current_user) %>
+          <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger btn-sm' do %>
+            <span class="glyphicon glyphicon-ban-circle"></span>
+            Remove myself from this project
+          <% end %>
+        <% else %>
+          <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success btn-sm' do %>
+            <span class="glyphicon glyphicon-heart"></span>
+            I want to work on this project
+          <% end %>
+        <% end %>
+        </div>
+        <div class="pull-right">
+          <img src="<%= @project.owner.profile_image_url %>" class="img-circle" width="30px"> Created by <%= @project.owner.name %> at <%= human_readable_date(@project.created_at) %>
+        </div>
+      </p>
+    </div>
+    <ul class="list-group">
+     <li class="list-group-item">
+       <dl class="dl-horizontal">
+         <dt>
+           <h4 class="text-primary"><i class="glyphicon glyphicon-thumbs-up"></i> <%= thumbs_up_people.count %> Likes</h4>
+         </dt>
+         <dd>
+           <h4><span class="text-primary"></span>
+             <% thumbs_up_people.each do |user| %>
+               <img src="<%= user.profile_image_url %>" class="img-circle" width="30px" alt="<%= user.name %>" title="<%= user.name %>">
+             <% end %>
+           </h4>
+         </dd>
+       </dl>
+     </li>
+     <li class="list-group-item">
+       <dl class="dl-horizontal">
+         <dt>
+           <h4 class="text-primary"><i class="glyphicon glyphicon-heart"></i> <%= @project.subscribers.count %> Subscribers</h4>
+         </dt>
+         <dd></dd>
 
-    <dl class="dl-horizontal">
-      <dt><img src="<%= current_user.profile_image_url %>" class="img-thumbnail" width="60px" alt="<%= current_user.name %>" title="<%= current_user.name %>"></dt>
-      <dd>Do you want to say something? <br /><%= f.text_area :body, rows: 3, class: "form-control" %><br /><%= f.submit class: "btn btn-primary" %></dd>
-    </dl>
-  <% end %>
+         <% if @project.subscribers.empty? %>
+           <dd>Nobody yet :( Why you don't invite someone to join?</dd>
+         <% end %>
+        </dl>
+
+         <% @project.subscribers.each do |user| %>
+         <dl class="dl-horizontal">
+            <dd>
+              <img class="img-circle" width="30px" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>">
+              <span>
+                <%= user.name %> (<%= user.email %>)
+                <% if current_user_admin_power %>
+                  <%= link_to admin_force_remove_subscriber_project_url(@project, {user_id: user.id}), method: :delete, data: { confirm: "Are you sure to remove #{user.name} from this project?" }, class: 'btn btn-danger btn-sm' do %>
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                    Remove <%= truncate(user.name, length: 10) %> from this project
+                  <% end %>
+                <% end %>
+              </span>
+            </dd>
+          </dl>
+         <% end %>
+     </li>
+
+     <li class="list-group-item">
+       <dl class="dl-horizontal">
+         <dt>
+           <h4 class="text-primary"><span class="glyphicon glyphicon-comment"></span> Comments:</h4>
+         </dt>
+         <dd>
+         </dd>
+       </dl>
+       <%= form_for(@comment, url: project_comments_path(project_id: @project.id)) do |f| %>
+         <% if @comment.errors.any? %>
+           <div class="alert alert-danger alert-dismissable" role="alert">
+             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+             <h4><%= pluralize(@comment.errors.count, "error") %> prohibited this project from being saved:</h4>
+
+             <ul>
+             <% @comment.errors.full_messages.each do |msg| %>
+               <li><%= msg %></li>
+             <% end %>
+             </ul>
+           </div>
+         <% end %>
+
+         <% @project.comments.each do |comment| %>
+           <dl class="dl-horizontal">
+             <dt id="comment-<%= comment.id %>"><img src="<%= comment.owner.profile_image_url %>" class="img-thumbnail" width="60px" alt="<%= comment.owner.name %>" title="<%= comment.owner.name %>"></dt>
+             <dd><strong><a href="#comment-<%= comment.id %>"><%= comment.owner.name %> at <%= human_readable_date(comment.updated_at) %></a></strong><br /><%= comment.body %></dd>
+           </dl>
+         <% end %>
+
+         <dl class="dl-horizontal">
+           <dt><img src="<%= current_user.profile_image_url %>" class="img-thumbnail" width="60px" alt="<%= current_user.name %>" title="<%= current_user.name %>"></dt>
+           <dd>Do you want to say something? <br /><%= f.text_area :body, rows: 3, class: "form-control" %><br /><%= f.submit class: "btn btn-primary" %></dd>
+         </dl>
+       <% end %>
+     </li>
+   </ul>
+  </div>
 </div>
