@@ -2,20 +2,28 @@
   <h1>Notifications</h1>
 </div>
 
-<ul class="list-group notifications">
+<div class="list-group notifications">
 <% @notifications.each do |notification| %>
-    <% unless notification.link.blank? %>
-      <li class="list-group-item link" data-on-click="<%= notification.link %>">
-    <% else %>
-      <li class="list-group-item">
-    <% end %>
-
-      <h4><% unless notification.visualized %>
-            <span class="glyphicon glyphicon-star"></span>
+  <% if notification.link.present? %>
+    <a href="<%= notification.link %>" class="list-group-item">
+  <% else %>
+    <div class="list-group-item">
+  <% end %>
+        <h4 class="text-primary">
+          <% unless notification.visualized %>
+            <span class="label label-danger">New</span>
           <% end %>
           <%= notification.title %>
-          <small><%= human_readable_date(notification.created_at) %><% unless notification.link.blank? %> - <a href="<%= notification.link %>">(Click to see more)</a><% end %></small></h4>
+
+          <small><%= human_readable_date(notification.created_at) %></small>
+        </h4>
+        <p>
           <%= notification.text.html_safe %>
-    </li>
+        </p>
+  <% if notification.link.present? %>
+    </a>
+  <% else %>
+    </div>
+  <% end %>
 <% end %>
-</ul>
+</div>

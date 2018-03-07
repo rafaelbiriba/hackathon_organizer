@@ -25,7 +25,7 @@ module Notifications
     end
 
     def link
-      project_path(project)
+      project_path(project, anchor: "thumbs-up")
     end
   end
 end

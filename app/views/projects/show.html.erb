@@ -35,7 +35,7 @@
     </div>
     <div class="panel-body">
       <%= simple_format(@project.description) %>
-
+      <hr />
       <p>
         <div class="pull-left">
         <% if thumbs_up_people.include?(current_user) %>
@@ -71,7 +71,7 @@
      <li class="list-group-item">
        <dl class="dl-horizontal">
          <dt>
-           <h4 class="text-primary"><i class="glyphicon glyphicon-thumbs-up"></i> <%= thumbs_up_people.count %> Likes</h4>
+           <h4 class="text-primary"><a href="#thumbs-up" id="thumbs-up"><i class="glyphicon glyphicon-thumbs-up"></i> <%= thumbs_up_people.count %> Likes</a></h4>
          </dt>
          <dd>
            <h4><span class="text-primary"></span>
@@ -85,9 +85,8 @@
      <li class="list-group-item">
        <dl class="dl-horizontal">
          <dt>
-           <h4 class="text-primary"><i class="glyphicon glyphicon-heart"></i> <%= @project.subscribers.count %> Subscribers</h4>
+           <h4 class="text-primary"><a href="#subscribers-list" id="subscribers-list"><i class="glyphicon glyphicon-heart"></i> <%= @project.subscribers.count %> Subscribers</a></h4>
          </dt>
-         <dd></dd>
 
          <% if @project.subscribers.empty? %>
            <dd>Nobody yet :( Why you don't invite someone to join?</dd>
@@ -115,7 +114,7 @@
      <li class="list-group-item">
        <dl class="dl-horizontal">
          <dt>
-           <h4 class="text-primary"><span class="glyphicon glyphicon-comment"></span> Comments:</h4>
+           <h4 class="text-primary"><a href="#comments" id="comments"><span class="glyphicon glyphicon-comment"></span> Comments:</a></h4>
          </dt>
          <dd>
          </dd>
