@@ -1,17 +1,36 @@
 <div class="page-header">
-  <h1>Users (<%= @users.count %>)</h1>
+  <h1>Users <span class="label label-default"><%= @users.count %></span></h1>
 </div>
 
 <div class="row users">
-  <% @users.each do |user| %>
-    <div class="col-sm-3 col-md-3">
-      <div class="thumbnail user allusers-cards">
-        <img src="<%= user.profile_image_url %>">
-        <div class="caption">
-          <h3><%= user.name %></h3>
-          <p>
-            <%= user.email %>
-            <br/><br/>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Labels</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td class="text-center"><img class="img-circle" width="45px" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>"></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <div>
+              <span class="label label-default"><%= user.projects.count %> Projects</span>
+              <span class="label label-default"><%= user.comments.count %> Comments</span>
+              <span class="label label-default"><%= user.thumbs_up.count %> Thumbs up</span>
+            </br>
+              <span class="label label-default"><%= user.subscriptions.count %> Subscriptions</span>
+              <span class="label label-default"><%= user.notifications.count %> Notifications</span>
+            </div>
+          </td>
+          <td>
             <% if user.is_admin %>
               <%= link_to revoke_user_admin_user_url(user), method: :delete, data: { confirm: 'Are you sure to revoke admin of this user?' }, class: 'btn btn-danger' do %>
                 <span class="glyphicon glyphicon-remove"></span>
@@ -19,14 +38,13 @@
               <% end %>
             <% else %>
               <%= link_to give_user_admin_user_url(user), class: 'btn btn-primary' do %>
-                <span class="glyphicon glyphicon-pencil"></span>
+                <span class="glyphicon glyphicon glyphicon-flash"></span>
                 Give Admin
               <% end %>
             <% end %>
-            <br/>
-          </p>
-        </div>
-      </div>
-    </div>
-  <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
