@@ -9,7 +9,7 @@
 <div>
   <div class="pull-left">
     <div class="btn-group">
-      <a href="<%= projects_url(projects_filters_params.merge(filter: nil)) %>" class="btn btn-sm <%= project_list_filter_class %>">Default Filter</a>
+      <a href="<%= projects_url(projects_filters_params.merge(filter: nil)) %>" class="btn btn-sm <%= project_list_filter_class %>">Default Filter <span class="glyphicon glyphicon glyphicon-filter"></span></a>
       <a href="<%= projects_url(projects_filters_params.merge(filter: "created_by_me")) %>" class="btn btn-sm <%= project_list_filter_class("created_by_me") %>">I created</a>
       <a href="<%= projects_url(projects_filters_params.merge(filter: "subscribed")) %>" class="btn btn-sm <%= project_list_filter_class("subscribed") %>">I subscribed</a>
       <a href="<%= projects_url(projects_filters_params.merge(filter: "liked")) %>" class="btn btn-sm <%= project_list_filter_class("liked") %>">I liked</a>
@@ -19,7 +19,7 @@
 
   <div class="pull-right">
     <div class="btn-group">
-      <a href="<%= projects_url(projects_filters_params.merge(order: nil)) %>" class="btn btn-sm <%= project_list_order_class %>">Default Order</a>
+      <a href="<%= projects_url(projects_filters_params.merge(order: nil)) %>" class="btn btn-sm <%= project_list_order_class %>">Default Order <span class="glyphicon glyphicon-sort"></a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_comments")) %>" class="btn btn-sm <%= project_list_order_class("top_comments") %>">Top Comments</a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_likes")) %>" class="btn btn-sm <%= project_list_order_class("top_likes") %>">Top Likes</a>
       <a href="<%= projects_url(projects_filters_params.merge(order: "top_subscribers")) %>" class="btn btn-sm <%= project_list_order_class("top_subscribers") %>">Top Subscribers</a>
