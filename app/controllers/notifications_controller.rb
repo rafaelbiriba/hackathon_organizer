@@ -6,6 +6,11 @@ class NotificationsController < ApplicationController
   def index
   end
 
+  def destroy_all
+    @notifications.destroy_all
+    redirect_to notifications_url, notice: "All notifications was successfully removed."
+  end
+
   def counter
     render json: { notifications_count: @new_notifications_count }
   end

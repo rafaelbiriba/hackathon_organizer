@@ -1,5 +1,11 @@
 <div class="page-header">
-  <h1>Notifications</h1>
+  <% if @notifications.count > 0 %>
+    <%= link_to destroy_all_notifications_path, method: :delete, data: { confirm: 'Are you sure to clear the notifications ?' }, class: 'btn btn-danger' do %>
+      <span class="glyphicon glyphicon-trash"></span>
+      Clear notifications
+    <% end %>
+  <% end %>
+  <h1>Notifications <span class="label label-default"><%= @notifications.count %></span></h1>
 </div>
 
 <div class="list-group notifications">
