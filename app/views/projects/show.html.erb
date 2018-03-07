@@ -18,7 +18,7 @@
         <span class="glyphicon glyphicon-pencil"></span>
         Edit this project
       <% end %>
-      <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger btn-sm' do %>
+      <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-remove"></span>
         Delete this project
       <% end %>
@@ -39,24 +39,24 @@
       <p>
         <div class="pull-left">
         <% if thumbs_up_people.include?(current_user) %>
-          <%= link_to remove_thumbs_up_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger btn-sm' do %>
+          <%= link_to remove_thumbs_up_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-thumbs-down"></span>
             Remove my thumbs up
           <% end %>
         <% else %>
-          <%= link_to add_thumbs_up_project_url(@project), class: 'btn btn-success btn-sm' do %>
+          <%= link_to add_thumbs_up_project_url(@project), class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-thumbs-up"></span>
             Give thumbs up
           <% end %>
         <% end %>
 
         <% if @project.subscribers.include?(current_user) %>
-          <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger btn-sm' do %>
+          <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ban-circle"></span>
             Remove myself from this project
           <% end %>
         <% else %>
-          <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success btn-sm' do %>
+          <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-heart"></span>
             I want to work on this project
           <% end %>
@@ -89,7 +89,7 @@
          </dt>
 
          <% if @project.subscribers.empty? %>
-           <dd>Nobody yet :( Why you don't invite someone to join?</dd>
+           <dd></br>Nobody yet :( Why you don't invite someone to join?</dd>
          <% end %>
         </dl>
 
@@ -133,10 +133,10 @@
            </div>
          <% end %>
 
-         <% @project.comments.each do |comment| %>
+         <% @project.comments.each_with_index do |comment, index| %>
            <dl class="dl-horizontal">
              <dt id="comment-<%= comment.id %>"><img src="<%= comment.owner.profile_image_url %>" class="img-thumbnail" width="60px" alt="<%= comment.owner.name %>" title="<%= comment.owner.name %>"></dt>
-             <dd><strong><a href="#comment-<%= comment.id %>"><%= comment.owner.name %> at <%= human_readable_date(comment.updated_at) %></a></strong><br /><%= comment.body %></dd>
+             <dd><strong><a href="#comment-<%= comment.id %>">[#<%= index+1 %>]</a> <%= comment.owner.name %></strong> (<%= human_readable_date(comment.updated_at) %>)<br /><%= comment.body %></dd>
            </dl>
          <% end %>
 
