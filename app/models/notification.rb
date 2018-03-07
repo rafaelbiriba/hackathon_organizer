@@ -27,7 +27,7 @@ class Notification < ApplicationRecord
 
   scope :not_visualized, -> { where(visualized: false) }
   scope :old_visualized_notifications, -> {
-    where("created_at < ? AND visualized = ?", 3.days.ago, true)
+    where("updated_at < ? AND visualized = ?", 3.days.ago, true)
   }
 
   private
