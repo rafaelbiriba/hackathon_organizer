@@ -6,10 +6,17 @@
       Back to list
     <% end %>
 
-    <% if current_user.is_admin && !current_user_admin_power %>
-      <%= link_to "?admin=power", class: 'btn btn-warning' do %>
-        <span class="glyphicon glyphicon-flash"></span>
-        Enable admin power
+    <% if current_user.is_admin %>
+      <% if current_user_admin_power %>
+        <%= link_to @project, class: 'btn btn-warning' do %>
+          <span class="glyphicon glyphicon-flash"></span>
+          Disable admin power on this page!
+        <% end %>
+      <% else %>
+        <%= link_to "?admin=power", data: { confirm: 'Are you sure do you want to enable admin power? With this power, you will be allowed to edit and delete the project and manage people subscribed.' }, class: 'btn btn-warning' do %>
+          <span class="glyphicon glyphicon-flash"></span>
+          Enable admin power on this page!
+        <% end %>
       <% end %>
     <% end %>
 

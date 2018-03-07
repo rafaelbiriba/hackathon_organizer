@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20180224005804) do
     t.string "email"
     t.text "profile_image_url"
     t.boolean "is_admin"
+    t.boolean "is_superuser"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"

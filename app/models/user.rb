@@ -7,6 +7,7 @@
 #  email             :string           indexed
 #  profile_image_url :text
 #  is_admin          :boolean
+#  is_superuser      :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

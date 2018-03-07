@@ -7,6 +7,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>ID</th>
         <th></th>
         <th>Name</th>
         <th>Email</th>
@@ -17,7 +18,8 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td class="text-center"><img class="img-circle" width="45px" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>"></td>
+          <td><%= user.id %></td>
+          <td><img class="img-square" width="45px" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>"></td>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td>
@@ -31,7 +33,8 @@
             </div>
           </td>
           <td>
-            <% if user.is_admin %>
+            <% if user.is_superuser %>
+            <% elsif user.is_admin %>
               <%= link_to revoke_user_admin_user_url(user), method: :delete, data: { confirm: 'Are you sure to revoke admin of this user?' }, class: 'btn btn-danger' do %>
                 <span class="glyphicon glyphicon-remove"></span>
                 Revoke Admin

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :validate_admin_user
   before_action :find_user, except: [:index]
+  before_action :check_for_superuser, only: [:revoke_user_admin]
 
   def index
     @users = User.all.order(:name)
@@ -21,6 +22,12 @@ class UsersController < ApplicationController
   private
   def find_user
     @user ||= User.find(params[:id])
+  end
+
+  def check_for_superuser
+    return unless @user.is_superuser
+    flash[:error] = "You can not remove this admin user."
+    redirect_to root_url
   end
 
   def validate_admin_user
