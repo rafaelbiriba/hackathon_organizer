@@ -9,11 +9,11 @@ RSpec.describe Notifications::NewThumbsUp do
     end
 
     it "should return the correct text" do
-      expect(subject.text).to eq("The user <b>#{subject.user_related.name}</b> just <b>thumbs up</b> the project <b>#{subject.project.title}</b>")
+      expect(subject.text).to eq("The user <b>#{subject.user_related.name}</b> just <b>thumbs up</b> the project <b>#{subject.project.title.truncate(Notification::PROJECT_TITLE_LENGTH)}</b>")
     end
 
     it "should return the correct link" do
-      expect(subject.link).to eq("/projects/#{subject.project.id}")
+      expect(subject.link).to eq("/projects/#{subject.project.id}#thumbs-up")
     end
   end
 end

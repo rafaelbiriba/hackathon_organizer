@@ -21,7 +21,7 @@ module Notifications
     end
 
     def text
-      "The user <b>#{user_related.name}</b> just <b>subscribed</b> to the project <b>#{project_title}</b>"
+      "The user <b>#{user_related.name}</b> just <b>subscribed</b> to the project <b>#{short_project_title}</b>"
     end
 
     def link

@@ -9,7 +9,7 @@ RSpec.describe Notifications::NewComment do
     end
 
     it "should return the correct text" do
-      expect(subject.text).to eq("New comment from <b>#{subject.user_related.name}</b> at the project <b>#{subject.project.title}</b>")
+      expect(subject.text).to eq("New comment from <b>#{subject.user_related.name}</b> at the project <b>#{subject.project.title.truncate(Notification::PROJECT_TITLE_LENGTH)}</b>")
     end
 
     it "should return the correct link" do

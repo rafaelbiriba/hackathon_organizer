@@ -9,7 +9,7 @@ RSpec.describe Notifications::RemovedThumbsUp do
     end
 
     it "should return the correct text" do
-      expect(subject.text).to eq("The user <b>#{subject.user_related.name}</b> just removed the <b>thumbs up</b> from the project <b>#{subject.project.title}</b>")
+      expect(subject.text).to eq("The user <b>#{subject.user_related.name}</b> just removed the <b>thumbs up</b> from the project <b>#{subject.project.title.truncate(Notification::PROJECT_TITLE_LENGTH)}</b>")
     end
 
     it "should return the correct link" do

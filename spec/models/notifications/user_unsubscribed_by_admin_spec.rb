@@ -9,7 +9,7 @@ RSpec.describe Notifications::UserUnsubscribedByAdmin do
     end
 
     it "should return the correct text" do
-      expect(subject.text).to eq("The <b>ADMIN user</b> just <b>unsubscribed</b> <b>#{subject.user_related.name}</b> from the project <b>#{subject.project.title}</b>")
+      expect(subject.text).to eq("The <b>ADMIN user</b> just <b>unsubscribed</b> <b>#{subject.user_related.name}</b> from the project <b>#{subject.project.title.truncate(Notification::PROJECT_TITLE_LENGTH)}</b>")
     end
 
     it "should return the correct link" do

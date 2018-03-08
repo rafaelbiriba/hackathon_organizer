@@ -16,7 +16,8 @@
 
 class Notification < ApplicationRecord
   include Rails.application.routes.url_helpers
-  include ActionView::Helpers::TextHelper
+
+  PROJECT_TITLE_LENGTH = 90
 
   belongs_to :user_related, class_name: "User", optional: true
   belongs_to :user_target, class_name: "User"
@@ -31,7 +32,8 @@ class Notification < ApplicationRecord
   }
 
   private
-  def project_title
-    truncate(project.title, length: 70)
+
+  def short_project_title
+    project.title.truncate(PROJECT_TITLE_LENGTH)
   end
 end

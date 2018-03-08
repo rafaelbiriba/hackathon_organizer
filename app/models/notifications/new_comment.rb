@@ -21,7 +21,7 @@ module Notifications
     end
 
     def text
-      "New comment from <b>#{user_related.name}</b> at the project <b>#{project_title}</b>"
+      "New comment from <b>#{user_related.name}</b> at the project <b>#{short_project_title}</b>"
     end
 
     def link

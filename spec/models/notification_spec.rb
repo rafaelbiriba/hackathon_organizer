@@ -31,7 +31,7 @@ RSpec.describe Notification do
     end
 
     describe "#old_visualized_notifications" do
-      let!(:generic_notification_old_visualized) { create(:notification_project, visualized: true, created_at: 5.days.ago) }
+      let!(:generic_notification_old_visualized) { create(:notification_project, visualized: true, updated_at: 5.days.ago) }
       let!(:generic_notification_new_visualized) { create(:notification_project, visualized: true) }
       let!(:generic_notification_new_no_visualized) { create(:notification_project, visualized: false) }
       it "should return only the notifications visualized and old" do
