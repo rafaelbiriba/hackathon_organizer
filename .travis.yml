@@ -2,11 +2,14 @@ sudo: false
 language: ruby
 rvm:
   - 2.4.1
+services:
+  - postgresql
 before_install: gem install bundler -v 1.15.0
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+  - psql -c 'create database hackathon_test;' -U postgres
 script:
   - bundle exec rspec
 after_script:
