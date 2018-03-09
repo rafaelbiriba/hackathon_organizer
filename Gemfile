@@ -11,13 +11,12 @@ gem "config"
 gem "newrelic_rpm"
 
 gem "omniauth-google-oauth2"
-
+gem "pg"
 
 group :development, :test do
   gem "rubocop", require: false
   gem "coveralls", require: false
   gem "simplecov", require: false
-  gem "sqlite3"
   gem "rspec"
   gem "rspec-rails"
   gem "shoulda-matchers"
@@ -26,9 +25,4 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "annotate"
   gem "faker"
-end
-
-group :production do
-  #gem "mysql2"
-  gem "pg"
 end
