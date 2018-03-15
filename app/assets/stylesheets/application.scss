@@ -1,9 +1,15 @@
 @import "bootstrap-generators";
 @import "google_button";
 
-#navbar .logout img {
-  width: 23px;
-  padding-right: 5px;
+#navbar .avatar {
+  img {
+    width: 35px;
+    padding-right: 5px;
+  }
+
+  .btn {
+    margin-left: 5px;
+  }
 }
 
 .thumbnail.user {
