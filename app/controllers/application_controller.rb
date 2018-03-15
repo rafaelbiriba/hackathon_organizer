@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :set_current_user if Rails.env.development?
   before_action :validate_user_logged
   before_action :define_notifications_counter
 
@@ -16,6 +17,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= session[:current_user_id] && User.find_by(id: session[:current_user_id])
+    user_id = session[:current_user_id]
+    @current_user ||= user_id && User.find_by(id: user_id)
+  end
+
+  # development only
+  def set_current_user
+    session[:current_user_id] = params[:user] if params[:user]
   end
 end
