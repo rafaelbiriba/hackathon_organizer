@@ -49,6 +49,7 @@
         <%= link_to "#{Settings.company_name} - #{Settings.hackathon_name}", projects_url, class: "navbar-brand" %>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
+        <% if current_user %>
         <ul class="nav navbar-nav">
           <li><a href="<%= projects_url %>">Projects</a></li>
           <li><a href="<%= notifications_url %>">Notifications <span class="badge notifications_count"><%= @new_notifications_count %></a></li>
@@ -56,7 +57,6 @@
             <li><a href="<%= users_url %>">Users</a></li>
           <% end %>
         </ul>
-        <% if current_user %>
           <p class="navbar-text navbar-right avatar">
               <img src="<%= current_user.profile_image_url %>" class="img-circle"><%= current_user.name %>
             <a href="<%= auth_logout_url %>" class="btn btn-sm btn-default">

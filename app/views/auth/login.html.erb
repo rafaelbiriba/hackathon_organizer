@@ -1,10 +1,16 @@
 <div class="text-center">
-  <h1>Welcome to the <%= Settings.company_name %> <%= Settings.hackathon_name %></h1>
-  <p>Please login using your google email <% if Settings.allowed_domain %>(from <%= Settings.allowed_domain %>) <% end %>to access the website</p>
-  <p>Don't worry, we just need to know who are you (name, email and picture)</p>
-  <%= link_to "/auth/google_oauth2" do %>
-  <button class="loginBtn loginBtn--google">
-    Login with Google
-  </button>
-  <% end %>
+  <div>
+    <h1>Welcome to the <%= Settings.company_name %> <%= Settings.hackathon_name %></h1>
+    <p>Please login using your google email <% if Settings.allowed_domain %>(from <%= Settings.allowed_domain %>) <% end %>to continue:</p>
+    <br />
+    <p>
+      <%= link_to "/auth/google_oauth2" do %>
+        <button class="loginBtn loginBtn--google">
+          Login with Google
+        </button>
+      <% end %>
+    </p>
+    <br />
+    <div class="alert alert-info" role="alert"><i class="glyphicon glyphicon-thumbs-up"></i> Don't worry, we just need to know who are you (name, email and picture)!</div>
+  </div>
 </div>
