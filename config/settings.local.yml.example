@@ -1,6 +1,9 @@
 # Settings sensible data here
 
-google_oauth_id: oauth_id # Your google oauth id
-google_oauth_secret: secret # Your google oauth secret
+google_oauth_id: google_oauth_id
+google_oauth_secret: google_oauth_secret
+company_name: Test Company
+hackathon_name: Hackathon 2017
+allowed_domain: example.com
 
 # Anything that you want to stay outside git...

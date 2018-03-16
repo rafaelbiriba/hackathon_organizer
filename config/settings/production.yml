@@ -1,5 +1,0 @@
-google_oauth_id: <%= ENV["GOOGLE_OAUTH_ID"] %>
-google_oauth_secret: <%= ENV["GOOGLE_OAUTH_SECRET"] %>
-company_name: <%= ENV["COMPANY_NAME"] %>
-hackathon_name: <%= ENV["HACKATHON_NAME"] %>
-allowed_domain: <%= ENV["ALLOWED_DOMAIN"] %>

@@ -1,8 +1,0 @@
-# You can move the sensible data entries to settings.local.yml.
-# settings.local.yml is ignored by git and overwrite all configuration from this file.
-
-google_oauth_id: oauth_id # Your google oauth id
-google_oauth_secret: secret # Your google oauth secret
-company_name: Test Company # Your company name
-hackathon_name: Hackathon 2017 # Hackathon name
-allowed_domain: # Leave it empty to allow all of them
