@@ -1,4 +1,4 @@
-# Hackathon Organizer
+# Hackathon Organizer [![Code Climate](https://codeclimate.com/github/rafaelbiriba/hackathon_organizer/badges/gpa.svg)](https://codeclimate.com/github/rafaelbiriba/hackathon_organizer) [![Travis](https://api.travis-ci.org/rafaelbiriba/hackathon_organizer.svg?branch=master)](https://travis-ci.org/rafaelbiriba/hackathon_organizer) [![Coverage Status](https://coveralls.io/repos/rafaelbiriba/hackathon_organizer/badge.svg?branch=master&service=github)](https://coveralls.io/github/rafaelbiriba/hackathon_organizer?branch=master)
 
 Small rails app that receives Hackathon ideas and also to subscribe the developers into it.
 
