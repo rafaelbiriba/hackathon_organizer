@@ -2,7 +2,10 @@
 
 Small rails app that receives Hackathon ideas and also to subscribe the developers into it.
 
-*NOTE*: The application is still under development, but it is stable to use. Grab the lastest git tag at:
+*NOTE*: The application is still under development, but it is stable to use. Grab the lastest release at:
+https://github.com/rafaelbiriba/hackathon_organizer/releases
+
+If you have any question about how to use the application, just reach me out!
 
 ## Instalation
 
@@ -27,3 +30,15 @@ Check for the `config/settings/production.yml.example` for the configuration fil
 ![Project list view](https://github.com/rafaelbiriba/hackathon_organizer/blob/master/docs/images/list.png)
 
 ![Project show view](https://github.com/rafaelbiriba/hackathon_organizer/blob/master/docs/images/show.png)
+
+## Contributing
+
+First of all, **thank you** for wanting to help!
+
+1. [Fork it](https://help.github.com/articles/fork-a-repo).
+2. Create a feature branch - `git checkout -b more_magic`
+3. Add tests and make your changes
+4. Check if tests are ok - `rake spec`
+5. Commit changes - `git commit -am "Added more magic"`
+6. Push to Github - `git push origin more_magic`
+7. Send a [pull request](https://help.github.com/articles/using-pull-requests)! :heart:
