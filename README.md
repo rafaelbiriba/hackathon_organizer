@@ -12,6 +12,14 @@ Instalation for a normal Rails app with Postgresql.
 
 Check for the `config/settings/production.yml.example` for the configuration file.
 
+## TODO/Backlog List
+
+- Finish the test coverage
+- Add proper documentation
+- Add mentions at comments
+- Add notifications via email
+- Move this todo list to github issues
+
 ## Screenshots
 
 **Detailed documentation comming soon.**
