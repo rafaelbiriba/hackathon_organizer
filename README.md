@@ -18,4 +18,4 @@ Check for the `config/settings/production.yml.example` for the configuration fil
 
 ![Project list view](https://github.com/rafaelbiriba/hackathon_organizer/blob/master/docs/images/list.png)
 
-![Project show view](https://github.com/rafaelbiriba/hackathon_organizer/blob/master/docs/images/show.png")
+![Project show view](https://github.com/rafaelbiriba/hackathon_organizer/blob/master/docs/images/show.png)
