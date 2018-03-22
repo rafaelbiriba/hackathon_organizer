@@ -9,6 +9,7 @@ gem "uglifier", ">= 1.3.0"
 gem "jquery-rails"
 gem "config"
 gem "newrelic_rpm"
+gem "auto_tag_version"
 
 gem "omniauth-google-oauth2"
 gem "pg"
