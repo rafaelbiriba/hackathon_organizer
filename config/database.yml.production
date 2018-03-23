@@ -1,0 +1,7 @@
+production: &default
+  adapter: postgresql
+  encoding: unicode
+  database: hackathon_organizer
+  pool: 5
+  username: user
+  password: password
