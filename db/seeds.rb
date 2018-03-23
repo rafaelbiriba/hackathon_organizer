@@ -1,3 +1,5 @@
+return if Rails.env.production?
+
 admin = FactoryBot.create(:user, is_admin: true, is_superuser: true)
 user1 = FactoryBot.create(:user, is_admin: true)
 user2 = FactoryBot.create(:user)
