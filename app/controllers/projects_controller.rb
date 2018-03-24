@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     @project.owner = current_user
 
     if @project.save
-      redirect_to @project, notice: "Project was successfully created."
+      redirect_to @project, notice: "Project was successfully created. If you want to work on this project, don't forget to subscribe below!"
     else
       render :new
     end
