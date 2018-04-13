@@ -81,7 +81,7 @@
            <h4 class="text-primary"><a href="#thumbs-up" id="thumbs-up"><i class="glyphicon glyphicon-thumbs-up"></i> <%= thumbs_up_people.count %> Likes</a></h4>
          </dt>
          <dd>
-           <h4><span class="text-primary"></span>
+           <h4>
              <% thumbs_up_people.each do |user| %>
                <img src="<%= user.profile_image_url %>" class="img-circle" width="30px" alt="<%= user.name %>" title="<%= user.name %>">
              <% end %>
