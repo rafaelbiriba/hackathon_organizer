@@ -7,10 +7,11 @@ FactoryBot.define do
     end
 
     email do
+      username = name.parameterize
       if Settings.allowed_domain.blank?
-        Faker::Internet.email
+        Faker::Internet.email(username)
       else
-        "#{Faker::Internet.user_name(6..16)}@#{Settings.allowed_domain}"
+        "#{username}@#{Settings.allowed_domain}"
       end
     end
   end
