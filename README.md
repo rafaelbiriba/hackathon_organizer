@@ -36,9 +36,17 @@ After deployment:
 ## TODO/Backlog List
 
 - [HIGH] Finish the test coverage
+- [HIGH] Refactor the controller (specially the projects)
 - [HIGH] Add proper documentation
+- [HIGH] Rename Subscribers to Workers, because is kind confusing
+- [MID] Add kubernetes or ansible or [type-name-here] to automate the deploy (Today only supports Heroku)
+- [MID] Add Edition concept (so we can have the history from previous hackathon)
+- [MID] With the history, introduce a way to clone or copy old ideas into the running hackathon.
 - [LOW] Add mentions at comments
 - [LOW] Add notifications via email
+- [LOW] Add my profile page (customize name, picture, and other preferences)
+- [LOW] Support for Facebook login
+- [LOW] Add a bug report feature (or at least a link for a github page)
 - [LOW] Move this todo list to github issues
 
 ## Screenshots
@@ -60,3 +68,13 @@ First of all, **thank you** for wanting to help!
 5. Commit changes - `git commit -am "Added more magic"`
 6. Push to Github - `git push origin more_magic`
 7. Send a [pull request](https://help.github.com/articles/using-pull-requests)! :heart:
+
+### Development Notes
+
+#### Switching Users
+
+Only for development environment, you can easily switch users using `?user=<id>` at the url. This will switch the logged user on-the-fly. (Example: `http://localhost:3000/projects?user=3`)
+
+#### Populating the Database
+
+The file `seed.rb` is responsible to populate the database with a lot of dummy data. You can use this to create an functional application and test things around. You can run it using `rake db:seed`
