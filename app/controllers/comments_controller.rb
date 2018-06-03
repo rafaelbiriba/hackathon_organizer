@@ -3,13 +3,12 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    @comment.project = @project
-    @comment.owner = current_user
-
-    if @comment.save
+    
+    if @comment.update(project: @project, owner: current_user)
       send_notifications
-      redirect_to project_path(@project, anchor: "comment-#{@comment.id}"), notice: 'Your comment was successfully created.'
+      redirect_to project_path(@project, anchor: "comment-#{@comment.id}"), notice: "Your comment was successfully created."
     else
+      flash[:error] = "Something is wrong!"
       render "projects/show"
     end
   end
