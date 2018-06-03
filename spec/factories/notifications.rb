@@ -5,6 +5,10 @@ FactoryBot.define do
     association :user_target, factory: :user
   end
 
+  factory :notification_text, class: Notifications::FreeText do
+    association :user_target, factory: :user
+  end
+
   factory :notification_new_comment, class: "Notifications::NewComment", parent: :notification_project do
     comment { create(:comment, project: project) }
   end

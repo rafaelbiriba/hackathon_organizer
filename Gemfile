@@ -20,6 +20,7 @@ group :development, :test do
   gem "simplecov", require: false
   gem "rspec"
   gem "rspec-rails"
+  gem "rails-controller-testing"
   gem "shoulda-matchers"
   gem "shoulda-callback-matchers"
   gem "byebug"
