@@ -12,8 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def define_notifications_counter
-    counter = current_user.notifications.not_visualized.count
-    @new_notifications_count = (counter > 0 ? counter : "")
+    @new_notifications_count = current_user.notifications.not_visualized.count
   end
 
   def current_user

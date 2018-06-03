@@ -3,6 +3,10 @@ module ApplicationHelper
     @current_user
   end
 
+  def notifications_counter
+    @new_notifications_count > 0 ? @new_notifications_count : ""
+  end
+
   def current_user_admin_power
     current_user.is_admin && params[:admin] == "power"
   end

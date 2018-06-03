@@ -52,7 +52,7 @@
         <% if current_user %>
         <ul class="nav navbar-nav">
           <li><a href="<%= projects_url %>">Projects</a></li>
-          <li><a href="<%= notifications_url %>">Notifications <span class="badge notifications_count"><%= @new_notifications_count %></a></li>
+          <li><a href="<%= notifications_url %>">Notifications <span class="badge notifications_count"><%= notifications_counter %></a></li>
           <% if current_user && current_user.is_admin %>
             <li><a href="<%= users_url %>">Users</a></li>
           <% end %>

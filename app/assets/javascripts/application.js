@@ -23,7 +23,7 @@ $( document ).ready(function() {
 
     setInterval(function(){
       $.get( "/notifications/counter.json", function( data ) {
-        var notifications_count = data.notifications_count;
+        var notifications_count = (data.notifications_count > 0) ? data.notifications_count : "";
         $( ".navbar-nav .badge.notifications_count" ).html(notifications_count);
         update_title_with_notification_count();
       });
