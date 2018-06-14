@@ -3,9 +3,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    
+
     if @comment.update(project: @project, owner: current_user)
-      send_notifications
       redirect_to project_path(@project, anchor: "comment-#{@comment.id}"), notice: "Your comment was successfully created."
     else
       flash[:error] = "Something is wrong!"
@@ -14,14 +13,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-    def send_notifications
-      @project.all_involved_users(except_user: current_user, include_commenters: true).each do |user|
-        Notifications::NewComment.create!(user_related: current_user, user_target: user,
-                                          project: @project, comment: @comment)
-      end
-    end
-
     def set_comment
       @comment = @project.comments.find(params[:id])
     end

@@ -11,6 +11,8 @@ RSpec.describe Project do
       let(:project) { create(:project) }
       let!(:notification) { create(:notification_project, project: project) }
 
+        it { is_expected.to callback(:destroy_notifications).before(:destroy) }
+
         it "should remove all notifications related to the project" do
           project.destroy
           expect(Notification.count).to eq 0

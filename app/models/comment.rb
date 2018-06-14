@@ -15,4 +15,11 @@ class Comment < ApplicationRecord
   belongs_to :owner, class_name: "User"
 
   validates_presence_of :body
+
+  after_create :send_notifications
+
+  private
+  def send_notifications
+    Notifications::NewComment.notify_all_involved_users(self)
+  end
 end
