@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-
+  before_action :set_notifications
   before_action :clean_old_notifications
   after_action :mark_all_as_visualized, except: [:counter]
 
@@ -12,19 +12,19 @@ class NotificationsController < ApplicationController
   end
 
   def counter
-    render json: { notifications_count: @new_notifications_count }
+    render json: { notifications_count: @notifications.not_visualized.count }
   end
 
   private
   def clean_old_notifications
-    notifications.old_visualized_notifications.destroy_all
+    @notifications.old_visualized_notifications.destroy_all
   end
 
   def mark_all_as_visualized
-    notifications.update_all(visualized: true)
+    @notifications.update_all(visualized: true)
   end
 
-  def notifications
+  def set_notifications
     @notifications ||= current_user.notifications.order("id DESC")
   end
 end
