@@ -24,6 +24,8 @@ RSpec.describe NotificationsController, :type => :controller do
       get :index
     end
 
+    it { should render_template("notifications/index") }
+
     it "should mark all notifications as visualized" do
       expect(notification1.reload.visualized).to eq(true)
       expect(notification2.reload.visualized).to eq(true)

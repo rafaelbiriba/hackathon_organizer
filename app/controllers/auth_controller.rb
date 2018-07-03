@@ -3,7 +3,7 @@ class AuthController < ApplicationController
   skip_before_action :define_notifications_counter
 
   def callback
-    data = request.env['omniauth.auth'].info
+    data = request.env["omniauth.auth"].info
     user = update_or_create_user(data)
     create_user_session(user)
 

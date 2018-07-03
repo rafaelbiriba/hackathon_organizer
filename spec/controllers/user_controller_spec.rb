@@ -43,6 +43,8 @@ RSpec.describe UsersController, :type => :controller do
 
     include_examples "validating logged user"
 
+    it { should render_template("users/index") }
+
     it "should assigns all users ordered by name" do
       expect(assigns(:users)).to eq([user_a, user_c, user_admin_z])
     end
