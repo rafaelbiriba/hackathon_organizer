@@ -23,8 +23,23 @@ RSpec.describe Project do
   describe "relationships" do
     it { should have_and_belong_to_many(:subscribers).class_name("User") }
     it { should belong_to(:owner).class_name("User") }
-    it { should have_many(:comments).dependent(:destroy) }
+    it { should have_many(:comments).dependent(:destroy).order( created_at: :asc ) }
     it { should have_many(:thumbs_up).dependent(:destroy) }
+
+    describe "comments order" do
+      let!(:project) { create(:project) }
+      let!(:comment1) { create(:comment, created_at: Time.now-2.days, updated_at: Time.now-2.days, project: project) }
+      let!(:comment2) { create(:comment, created_at: Time.now-4.days, updated_at: Time.now-4.days, project: project) }
+      let!(:comment3) { create(:comment, project: project) }
+
+      before do
+        project.reload
+      end
+
+      it "should return the comments ordering by created_at" do
+        expect(project.comments.to_a).to eq([comment2, comment1, comment3])
+      end
+    end
   end
 
   describe "#all_involved_users" do

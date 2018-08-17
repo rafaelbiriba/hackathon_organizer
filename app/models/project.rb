@@ -13,7 +13,7 @@
 class Project < ApplicationRecord
   belongs_to :owner, class_name: "User"
   has_and_belongs_to_many :subscribers, class_name: "User"
-  has_many :comments, dependent: :destroy
+  has_many :comments, -> { order( created_at: :asc) }, dependent: :destroy
   has_many :thumbs_up, dependent: :destroy
 
   validates_presence_of :title, :description
