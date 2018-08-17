@@ -20,12 +20,29 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :user_target_id
   has_many :thumbs_up, foreign_key: :creator_id
 
+  after_save :validate_profile_image!
+
   validate :allowed_domain
 
   validates_uniqueness_of :email
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
+  def validate_profile_image!
+    return unless profile_image_url
+    require "rest_client"
+    begin
+      response_code = RestClient.head(profile_image_url).code
+    rescue RestClient::ExceptionWithResponse
+    ensure
+      remove_profile_image_url! if response_code != 200
+    end
+  end
+
   private
+  def remove_profile_image_url!
+    update_attributes!(profile_image_url: nil)
+  end
+
   def allowed_domain
     return if Settings.allowed_domain.blank?
     errors.add(:email, "domain not allowed") unless self.email.match("@#{Settings.allowed_domain}")

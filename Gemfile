@@ -10,6 +10,7 @@ gem "jquery-rails"
 gem "config"
 gem "newrelic_rpm"
 gem "auto_tag_version"
+gem "rest-client"
 
 gem "omniauth-google-oauth2"
 gem "pg"
@@ -27,4 +28,5 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "annotate"
   gem "faker"
+  gem "webmock"
 end

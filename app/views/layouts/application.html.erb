@@ -58,7 +58,7 @@
           <% end %>
         </ul>
           <p class="navbar-text navbar-right avatar">
-              <img src="<%= current_user.profile_image_url %>" class="img-circle"><%= current_user.name %>
+              <img src="<%= user_profile_image(@current_user) %>" class="img-circle"><%= current_user.name %>
             <a href="<%= auth_logout_url %>" class="btn btn-sm btn-default">
               <i class="glyphicon glyphicon-log-out"></i>
               Logout

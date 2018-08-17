@@ -70,7 +70,7 @@
         <% end %>
         </div>
         <div class="pull-right">
-          <img src="<%= @project.owner.profile_image_url %>" class="img-circle" width="30px"> Created by <%= @project.owner.name %> at <%= human_readable_date(@project.created_at) %>
+          <img src="<%= user_profile_image(@project.owner) %>" class="img-circle" width="30px"> Created by <%= @project.owner.name %> at <%= human_readable_date(@project.created_at) %>
         </div>
       </p>
     </div>
@@ -83,7 +83,7 @@
          <dd>
            <h4>
              <% thumbs_up_people.each do |user| %>
-               <img src="<%= user.profile_image_url %>" class="img-circle" width="30px" alt="<%= user.name %>" title="<%= user.name %>">
+               <img src="<%= user_profile_image(user) %>" class="img-circle" width="30px" alt="<%= user.name %>" title="<%= user.name %>">
              <% end %>
            </h4>
          </dd>
@@ -103,7 +103,7 @@
          <% @project.subscribers.each do |user| %>
          <dl class="dl-horizontal">
             <dd>
-              <img class="img-circle" width="30px" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>">
+              <img class="img-circle" width="30px" src="<%= user_profile_image(user) %>" alt="<%= user.name %>" title="<%= user.name %>">
               <span>
                 <%= user.name %> (<%= user.email %>)
                 <% if current_user_admin_power %>
@@ -142,13 +142,13 @@
 
          <% @project.comments.each_with_index do |comment, index| %>
            <dl class="dl-horizontal">
-             <dt id="comment-<%= comment.id %>"><img src="<%= comment.owner.profile_image_url %>" class="img-thumbnail" width="60px" alt="<%= comment.owner.name %>" title="<%= comment.owner.name %>"></dt>
+             <dt id="comment-<%= comment.id %>"><img src="<%= user_profile_image(comment.owner) %>" class="img-thumbnail" width="60px" alt="<%= comment.owner.name %>" title="<%= comment.owner.name %>"></dt>
              <dd><strong><a href="#comment-<%= comment.id %>">[#<%= index+1 %>]</a> <%= comment.owner.name %></strong> (<%= human_readable_date(comment.updated_at) %>)<br /><%= comment.body %></dd>
            </dl>
          <% end %>
 
          <dl class="dl-horizontal">
-           <dt><img src="<%= current_user.profile_image_url %>" class="img-thumbnail" width="60px" alt="<%= current_user.name %>" title="<%= current_user.name %>"></dt>
+           <dt><img src="<%= user_profile_image(current_user) %>" class="img-thumbnail" width="60px" alt="<%= current_user.name %>" title="<%= current_user.name %>"></dt>
            <dd>Do you want to say something? <br /><%= f.text_area :body, rows: 3, class: "form-control" %><br /><%= f.submit class: "btn btn-primary" %></dd>
          </dl>
        <% end %>

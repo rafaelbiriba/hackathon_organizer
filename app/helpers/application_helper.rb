@@ -3,6 +3,10 @@ module ApplicationHelper
     @current_user
   end
 
+  def user_profile_image(user)
+    user.profile_image_url || image_url("default-no-image.jpg")
+  end
+
   def notifications_counter
     @new_notifications_count > 0 ? @new_notifications_count : ""
   end

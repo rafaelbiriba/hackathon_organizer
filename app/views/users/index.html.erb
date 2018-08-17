@@ -19,7 +19,7 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
-          <td><img class="img-square" width="45px" src="<%= user.profile_image_url %>" alt="<%= user.name %>" title="<%= user.name %>"></td>
+          <td><img class="img-square" width="45px" src="<%= user_profile_image(user) %>" alt="<%= user.name %>" title="<%= user.name %>"></td>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td>
