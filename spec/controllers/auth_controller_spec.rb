@@ -73,7 +73,7 @@ RSpec.describe AuthController, :type => :controller do
             OpenStruct.new({
               email: user.email,
               name: "new name",
-              image: "http://new_image.jpg"
+              image: Faker::Avatar.image
             })
           end
 

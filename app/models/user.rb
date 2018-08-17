@@ -32,7 +32,7 @@ class User < ApplicationRecord
     require "rest_client"
     begin
       response_code = RestClient.head(profile_image_url).code
-    rescue RestClient::ExceptionWithResponse
+    rescue Exception
     ensure
       remove_profile_image_url! if response_code != 200
     end
