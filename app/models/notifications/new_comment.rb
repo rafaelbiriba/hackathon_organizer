@@ -2,7 +2,7 @@
 #
 # Table name: notifications
 #
-#  id              :integer          not null, primary key
+#  id              :bigint(8)        not null, primary key
 #  project_id      :integer          indexed
 #  comment_id      :integer          indexed
 #  user_related_id :integer          indexed

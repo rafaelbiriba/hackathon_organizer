@@ -2,7 +2,7 @@
 #
 # Table name: comments
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  body       :text
 #  project_id :integer          indexed
 #  owner_id   :integer          indexed

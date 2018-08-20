@@ -2,12 +2,17 @@
 #
 # Table name: projects
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  title       :string
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  owner_id    :integer          indexed
+#  editions_id :bigint(8)        indexed
+#
+# Foreign Keys
+#
+#  fk_rails_...  (editions_id => editions.id)
 #
 
 class Project < ApplicationRecord
