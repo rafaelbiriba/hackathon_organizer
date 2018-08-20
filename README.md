@@ -30,7 +30,7 @@ Installation for a normal Rails app with Postgresql. (Recommended: Heroku with P
 After deployment:
 - Create the settings for production. (check `config/settings/production.yml.example` for the configuration file example)
 - Setup the database yml for production Postgresql. (check `config/database.yml.production`)
-- Run `rake db:create` and `rake db:schema:load` (to load the schema file into the database)
+- Run `rake db:prepare` (will create the db, load the schema and run the migrations)
 - Run `rake users:give_superuser[example@mail.com]` to give the superuser admin to `example@mail.com`.
 
 ## TODO/Backlog List
