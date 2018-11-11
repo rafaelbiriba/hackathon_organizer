@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
-  resources :projects do
-    member do
-      get "add_subscriber"
-      delete "remove_subscriber"
-      delete "admin_force_remove_subscriber"
-      get "add_thumbs_up"
-      delete "remove_thumbs_up"
-    end
 
-    resources :comments, only: [:create]
+  get "projects" => "projects#index", as: "projects"
+
+  resources :editions do
+    resources :projects do
+      member do
+        get "add_subscriber"
+        delete "remove_subscriber"
+        delete "admin_force_remove_subscriber"
+        get "add_thumbs_up"
+        delete "remove_thumbs_up"
+      end
+
+      resources :comments, only: [:create]
+    end
   end
 
   resources :notifications, only: [:index] do

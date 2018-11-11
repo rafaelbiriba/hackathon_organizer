@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180224005804) do
+ActiveRecord::Schema.define(version: 20180820065613) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
@@ -20,6 +23,12 @@ ActiveRecord::Schema.define(version: 20180224005804) do
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_comments_on_owner_id"
     t.index ["project_id"], name: "index_comments_on_project_id"
+  end
+
+  create_table "editions", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "finishes_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -46,6 +55,8 @@ ActiveRecord::Schema.define(version: 20180224005804) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "owner_id"
+    t.bigint "edition_id"
+    t.index ["edition_id"], name: "index_projects_on_edition_id"
     t.index ["owner_id"], name: "index_projects_on_owner_id"
   end
 
@@ -74,4 +85,5 @@ ActiveRecord::Schema.define(version: 20180224005804) do
     t.index ["email"], name: "index_users_on_email"
   end
 
+  add_foreign_key "projects", "editions"
 end

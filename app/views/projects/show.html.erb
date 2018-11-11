@@ -1,7 +1,7 @@
 <div class="project-show">
   <br/>
   <div>
-    <%= link_to projects_path, class: 'btn btn-default' do %>
+    <%= link_to edition_projects_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       Back to list
     <% end %>
@@ -21,11 +21,11 @@
     <% end %>
 
     <% if @project.owner == current_user || current_user_admin_power %>
-      <%= link_to edit_project_path(@project), class: 'btn btn-primary' do %>
+      <%= link_to edit_edition_project_path(@edition, @project), class: 'btn btn-primary' do %>
         <span class="glyphicon glyphicon-pencil"></span>
         Edit this project
       <% end %>
-      <%= link_to project_path(@project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
+      <%= link_to edition_project_path(@edition, @project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
         <span class="glyphicon glyphicon-trash"></span>
         Delete this project
       <% end %>
@@ -46,24 +46,24 @@
       <p>
         <div class="pull-left">
         <% if thumbs_up_people.include?(current_user) %>
-          <%= link_to remove_thumbs_up_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger' do %>
+          <%= link_to remove_thumbs_up_edition_project_url(@edition, @project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-thumbs-down"></span>
             Remove my thumbs up
           <% end %>
         <% else %>
-          <%= link_to add_thumbs_up_project_url(@project), class: 'btn btn-success' do %>
+          <%= link_to add_thumbs_up_edition_project_url(@edition, @project), class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-thumbs-up"></span>
             Give thumbs up
           <% end %>
         <% end %>
 
         <% if @project.subscribers.include?(current_user) %>
-          <%= link_to remove_subscriber_project_url(@project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
+          <%= link_to remove_subscriber_edition_project_url(@edition, @project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
             <span class="glyphicon glyphicon-ban-circle"></span>
             Remove myself from this project
           <% end %>
         <% else %>
-          <%= link_to add_subscriber_project_url(@project), class: 'btn btn-success' do %>
+          <%= link_to add_subscriber_edition_project_url(@edition, @project), class: 'btn btn-success' do %>
             <span class="glyphicon glyphicon-heart"></span>
             I want to work on this project
           <% end %>
@@ -126,7 +126,7 @@
          <dd>
          </dd>
        </dl>
-       <%= form_for(@comment, url: project_comments_path(project_id: @project.id)) do |f| %>
+       <%= form_for(@comment, url: edition_project_comments_path(@edition, @project)) do |f| %>
          <% if @comment.errors.any? %>
            <div class="alert alert-danger alert-dismissable" role="alert">
              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

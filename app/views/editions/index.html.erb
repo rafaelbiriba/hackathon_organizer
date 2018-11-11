@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1>Editions</h1>
+</div>
+
+<div class="list-group editions">
+<% @editions.each do |edition| %>
+  <a href="<%= edition_projects_url(edition) %>" class="list-group-item">
+      <h4 class="text-primary">
+        <% if edition.active? %>
+
+          <span class="label label-danger">Active now</span>
+        <% end %>
+        <%= edition.title %>
+      </h4>
+      <p>
+        Projects: <span class="badge"><%= edition.projects.count %></span>
+      </p>
+      <p>
+        Starts at: <%= edition.starts_at %>
+      </p>
+      <p>
+        Finished at: <%= edition.finishes_at %>
+      </p>
+  </a>
+<% end %>
+</div>

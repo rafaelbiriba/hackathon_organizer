@@ -22,12 +22,6 @@ class UsersController < ApplicationController
     @user ||= User.find(params[:id])
   end
 
-  def check_for_superuser
-    return unless @user.is_superuser
-    flash[:error] = "You can not remove the admin power of this user."
-    redirect_to root_url
-  end
-
   def validate_admin_user
     return if current_user.is_admin
     flash[:error] = "You are not an admin."

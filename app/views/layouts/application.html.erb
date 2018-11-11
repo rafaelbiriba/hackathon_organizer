@@ -51,8 +51,8 @@
       <div id="navbar" class="collapse navbar-collapse">
         <% if current_user %>
         <ul class="nav navbar-nav">
-          <li><a href="<%= projects_url %>">Projects</a></li>
-          <li><a href="<%= notifications_url %>">Notifications <span class="badge notifications_count"><%= notifications_counter %></a></li>
+          <li><a href="<%= editions_url %>">Editions</a></li>
+          <li><a href="<%= notifications_url %>">Notifications <span class="badge notifications_count"><%= notifications_counter %></span></a></li>
           <% if current_user && current_user.is_admin %>
             <li><a href="<%= users_url %>">Users</a></li>
           <% end %>
