@@ -25,7 +25,7 @@ module Notifications
     end
 
     def link
-      edition_project_path(project, anchor: "comment-#{comment.id}")
+      edition_project_path(project.edition, project, anchor: "comment-#{comment.id}")
     end
 
     def self.notify_all_involved_users(comment)

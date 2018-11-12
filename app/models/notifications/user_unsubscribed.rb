@@ -25,7 +25,7 @@ module Notifications
     end
 
     def link
-      edition_project_path(project, anchor: "subscribers-list")
+      edition_project_path(project.edition, project, anchor: "subscribers-list")
     end
   end
 end

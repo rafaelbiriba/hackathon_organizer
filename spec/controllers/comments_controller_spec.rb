@@ -11,13 +11,16 @@ RSpec.describe CommentsController, :type => :controller do
   it { should use_before_action(:set_project) }
 
   describe "POST #create" do
-    it { should route(:post, "/projects/#{project.id}/comments").to(action: :create, project_id: project.id) }
+    it do
+      should route(:post, "editions/#{project.edition.id}/projects/#{project.id}/comments")
+              .to(action: :create, project_id: project.id, edition_id: project.edition.id)
+    end
 
     let(:comment_params) { { body: "My comment!" } }
 
     context "when the comment is created properly" do
       before do
-        post :create, params: { project_id: project.id, comment: comment_params }
+        post :create, params: { project_id: project.id, edition_id: project.edition.id, comment: comment_params }
       end
 
       it "should create the comment" do
@@ -31,13 +34,13 @@ RSpec.describe CommentsController, :type => :controller do
 
       it do
         last_comment = Comment.last
-        should redirect_to(project_path(project, anchor: "comment-#{last_comment.id}"))
+        should redirect_to(edition_project_path(project.edition, project, anchor: "comment-#{last_comment.id}"))
       end
     end
 
     context "when something is wrong" do
       before do
-        post :create, params: { project_id: project.id, comment: { body: "" } }
+        post :create, params: { project_id: project.id, edition_id: project.edition.id, comment: { body: "" } }
       end
 
       it { should set_flash[:error].to("Something is wrong!") }

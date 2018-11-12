@@ -25,7 +25,7 @@ module Notifications
     end
 
     def link
-      edition_project_path(project)
+      edition_project_path(project.edition, project)
     end
   end
 end

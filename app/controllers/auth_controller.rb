@@ -7,7 +7,7 @@ class AuthController < ApplicationController
     user = update_or_create_user(data)
     create_user_session(user)
 
-    redirect_to projects_url
+    redirect_to editions_url
   end
 
   def failure

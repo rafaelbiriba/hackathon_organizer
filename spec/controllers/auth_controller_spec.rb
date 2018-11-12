@@ -48,7 +48,7 @@ RSpec.describe AuthController, :type => :controller do
       it { should route(method, "/auth/google/callback").to(action: :callback, provider: "google") }
 
       describe "when happy path" do
-        it { should redirect_to(projects_url) }
+        it { should redirect_to(editions_url) }
 
         context "if the user doesn't exists" do
           let(:user) { build(:user) }

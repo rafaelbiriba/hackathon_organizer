@@ -13,7 +13,7 @@ RSpec.describe Notifications::NewComment do
     end
 
     it "should return the correct link" do
-      expect(subject.link).to eq("/projects/#{subject.project.id}#comment-#{subject.comment.id}")
+      expect(subject.link).to eq("/editions/#{subject.project.edition.id}/projects/#{subject.project.id}#comment-#{subject.comment.id}")
     end
   end
 
