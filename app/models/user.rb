@@ -20,7 +20,7 @@ class User < ApplicationRecord
   has_many :notifications, foreign_key: :user_target_id
   has_many :thumbs_up, foreign_key: :creator_id
 
-  after_save :validate_profile_image!
+  after_save :validate_profile_image!, if: :should_validate_profile_image?
 
   validate :allowed_domain
 
@@ -39,6 +39,10 @@ class User < ApplicationRecord
   end
 
   private
+  def should_validate_profile_image?
+    true if Rails.env.production?
+  end
+
   def remove_profile_image_url!
     update_attributes!(profile_image_url: nil)
   end

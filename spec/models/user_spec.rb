@@ -3,6 +3,10 @@ require "rails_helper"
 RSpec.describe User do
   after { Settings.reload! }
 
+  before do
+    allow_any_instance_of(User).to receive(:should_validate_profile_image?).and_return(true)
+  end
+
   describe "profile image validation" do
     let(:user) { create(:user) }
 
