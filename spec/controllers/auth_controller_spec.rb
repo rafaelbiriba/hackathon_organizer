@@ -42,6 +42,7 @@ RSpec.describe AuthController, :type => :controller do
 
     shared_examples "callback method" do |method|
       before do
+        stub_request(:any, oauth_data.image).to_return(status: 200)
         send(method, :callback, params: { provider: "google" })
       end
 
