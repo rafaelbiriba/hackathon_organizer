@@ -34,6 +34,7 @@ class User < ApplicationRecord
       response_code = RestClient.head(profile_image_url).code
     rescue Exception
     ensure
+      Rails.logger.error "Removing user #{self.id} image '#{profile_image_url}' because was not reachable."
       remove_profile_image_url! if response_code != 200
     end
   end
