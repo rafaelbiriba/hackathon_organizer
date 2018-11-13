@@ -27,7 +27,8 @@ ActiveRecord::Schema.define(version: 20180820065613) do
 
   create_table "editions", force: :cascade do |t|
     t.string "title", null: false
-    t.datetime "starts_at", null: false
+    t.datetime "registration_starts_at", null: false
+    t.datetime "event_starts_at", null: false
     t.datetime "finishes_at", null: false
   end
 

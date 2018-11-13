@@ -2,10 +2,11 @@
 #
 # Table name: editions
 #
-#  id          :bigint(8)        not null, primary key
-#  title       :string           not null
-#  starts_at   :datetime         not null
-#  finishes_at :datetime         not null
+#  id                     :bigint(8)        not null, primary key
+#  title                  :string           not null
+#  registration_starts_at :datetime         not null
+#  event_starts_at        :datetime         not null
+#  finishes_at            :datetime         not null
 #
 
 class Edition < ApplicationRecord
@@ -14,7 +15,7 @@ class Edition < ApplicationRecord
   #validate :starts_at_ranges, :finishes_at_ranges
 
   def active?
-    Time.now > starts_at  && Time.now <= finishes_at
+    Time.now > registration_starts_at  && Time.now <= finishes_at
   end
 
   private

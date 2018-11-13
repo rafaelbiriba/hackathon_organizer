@@ -2,7 +2,8 @@ class Edition < ActiveRecord::Migration[5.1]
   def change
     create_table :editions do |t|
       t.string "title", null: false
-      t.datetime "starts_at", null: false
+      t.datetime "registration_starts_at", null: false
+      t.datetime "event_starts_at", null: false
       t.datetime "finishes_at", null: false
     end
 
