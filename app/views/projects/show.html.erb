@@ -6,30 +6,7 @@
       Back to list
     <% end %>
 
-    <% if current_user.is_admin %>
-      <% if current_user_admin_power %>
-        <%= link_to @project, class: 'btn btn-warning' do %>
-          <span class="glyphicon glyphicon-flash"></span>
-          Disable admin power on this page!
-        <% end %>
-      <% else %>
-        <%= link_to "?admin=power", data: { confirm: 'Are you sure do you want to enable admin power? With this power, you will be allowed to edit and delete the project and manage people subscribed.' }, class: 'btn btn-warning' do %>
-          <span class="glyphicon glyphicon-flash"></span>
-          Enable admin power on this page!
-        <% end %>
-      <% end %>
-    <% end %>
-
-    <% if @project.owner == current_user || current_user_admin_power %>
-      <%= link_to edit_edition_project_path(@edition, @project), class: 'btn btn-primary' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Edit this project
-      <% end %>
-      <%= link_to edition_project_path(@edition, @project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
-        <span class="glyphicon glyphicon-trash"></span>
-        Delete this project
-      <% end %>
-    <% end %>
+    <%= render partial: "project_actions" if edition_active? %>
   </div>
 
   <br />
@@ -45,29 +22,7 @@
       <hr />
       <p>
         <div class="pull-left">
-        <% if thumbs_up_people.include?(current_user) %>
-          <%= link_to remove_thumbs_up_edition_project_url(@edition, @project), method: :delete, data: { confirm: 'Are you sure to remove your thumbs up?' }, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-thumbs-down"></span>
-            Remove my thumbs up
-          <% end %>
-        <% else %>
-          <%= link_to add_thumbs_up_edition_project_url(@edition, @project), class: 'btn btn-success' do %>
-            <span class="glyphicon glyphicon-thumbs-up"></span>
-            Give thumbs up
-          <% end %>
-        <% end %>
-
-        <% if @project.subscribers.include?(current_user) %>
-          <%= link_to remove_subscriber_edition_project_url(@edition, @project), method: :delete, data: { confirm: 'Are you sure to remove yourself from this project?' }, class: 'btn btn-danger' do %>
-            <span class="glyphicon glyphicon-ban-circle"></span>
-            Remove myself from this project
-          <% end %>
-        <% else %>
-          <%= link_to add_subscriber_edition_project_url(@edition, @project), class: 'btn btn-success' do %>
-            <span class="glyphicon glyphicon-heart"></span>
-            I want to work on this project
-          <% end %>
-        <% end %>
+          <%= render partial: "social_actions" if edition_active? %>
         </div>
         <div class="pull-right">
           <img src="<%= user_profile_image(@project.owner) %>" class="img-circle" width="30px"> Created by <%= @project.owner.name %> at <%= human_readable_date(@project.created_at) %>
@@ -147,10 +102,12 @@
            </dl>
          <% end %>
 
-         <dl class="dl-horizontal">
-           <dt><img src="<%= user_profile_image(current_user) %>" class="img-thumbnail" width="60px" alt="<%= current_user.name %>" title="<%= current_user.name %>"></dt>
-           <dd>Do you want to say something? <br /><%= f.text_area :body, rows: 3, class: "form-control" %><br /><%= f.submit class: "btn btn-primary" %></dd>
-         </dl>
+         <% if edition_active? %>
+           <dl class="dl-horizontal">
+             <dt><img src="<%= user_profile_image(current_user) %>" class="img-thumbnail" width="60px" alt="<%= current_user.name %>" title="<%= current_user.name %>"></dt>
+             <dd>Do you want to say something? <br /><%= f.text_area :body, rows: 3, class: "form-control" %><br /><%= f.submit class: "btn btn-primary" %></dd>
+           </dl>
+          <% end %>
        <% end %>
      </li>
    </ul>

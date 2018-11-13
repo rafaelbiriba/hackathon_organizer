@@ -1,7 +1,9 @@
 <div class="page-header">
-  <%= link_to new_edition_project_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    New Project
+  <% if edition_active? %>
+    <%= link_to new_edition_project_path, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      New Project
+    <% end %>
   <% end %>
   <h1><%= @edition.title %> <span class="label label-default"><%= @projects.count %><% if params["filter"] || params["search"] %> of <%= @total_count %><% end %></span></h1>
 </div>

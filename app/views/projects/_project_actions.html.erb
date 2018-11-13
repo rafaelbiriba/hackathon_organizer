@@ -1,0 +1,24 @@
+<% if current_user.is_admin %>
+  <% if current_user_admin_power %>
+    <%= link_to @project, class: 'btn btn-warning' do %>
+      <span class="glyphicon glyphicon-flash"></span>
+      Disable admin power on this page!
+    <% end %>
+  <% else %>
+    <%= link_to "?admin=power", data: { confirm: 'Are you sure do you want to enable admin power? With this power, you will be allowed to edit and delete the project and manage people subscribed.' }, class: 'btn btn-warning' do %>
+      <span class="glyphicon glyphicon-flash"></span>
+      Enable admin power on this page!
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @project.owner == current_user || current_user_admin_power %>
+  <%= link_to edit_edition_project_path(@edition, @project), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit this project
+  <% end %>
+  <%= link_to edition_project_path(@edition, @project), method: :delete, data: { confirm: 'Are you sure to delete this project?' }, class: 'btn btn-danger' do %>
+    <span class="glyphicon glyphicon-trash"></span>
+    Delete this project
+  <% end %>
+<% end %>
