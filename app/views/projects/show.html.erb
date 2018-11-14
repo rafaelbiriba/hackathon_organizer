@@ -1,5 +1,5 @@
 <div class="project-show">
-  <% unless edition_active? %>
+  <% unless loaded_edition_active? %>
     <div class="alert alert-danger">
       <strong>This project is read-only</strong> because its edition has already finished on <%= human_readable_datetime(@edition.end_date) %>!
     </div>
@@ -10,7 +10,15 @@
       Back to <strong><%= @project.edition.title %></strong> list
     <% end %>
 
-    <%= render partial: "project_actions" if edition_active? %>
+    <% if any_edition_active_now %>
+      <%= link_to new_edition_project_path(any_edition_active_now, related_project: @project.id), class: 'btn btn-primary pull-right' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="glyphicon glyphicon-retweet"></span>
+        Create a new project related to this on <strong><%= any_edition_active_now.title %></strong>
+      <% end %>
+    <% end %>
+
+    <%= render partial: "project_actions" if loaded_edition_active? %>
   </div>
 
   <br />
@@ -22,18 +30,12 @@
       <h3 class="panel-title"><%= @project.title %></h3>
     </div>
     <div class="panel-body">
-      <% if @project.related_project %>
-      <h6>
-        <i class="glyphicon glyphicon-retweet"></i> Related or similar to:
-          <a href="<%= edition_project_path(@project.related_project.edition, @project.related_project) %>" class="label label-primary"><%= truncate(@project.related_project.title, length: 100) %></a> from <a href="<%= edition_projects_path(@project.related_project.edition) %>" class="label label-default"><%= truncate(@project.related_project.edition.title, length: 50) %></a> edition
-      </h6>
-      <hr />
-      <% end %>
+      <%= render partial: "project_related_to_disclaimer" if @project.related_project %>
       <p><%= simple_format(@project.description) %></p>
       <hr />
       <p>
         <div class="pull-left">
-          <%= render partial: "social_actions", locals: { thumbs_up_people: thumbs_up_people } if edition_active? %>
+          <%= render partial: "social_actions", locals: { thumbs_up_people: thumbs_up_people } if loaded_edition_active? %>
         </div>
         <div class="pull-right">
           <img src="<%= user_profile_image(@project.owner) %>" class="img-circle" width="30px">
@@ -114,7 +116,7 @@
            </dl>
          <% end %>
 
-         <% if edition_active? %>
+         <% if loaded_edition_active? %>
            <dl class="dl-horizontal">
              <dt><img src="<%= user_profile_image(current_user) %>" class="img-thumbnail" width="60px" alt="<%= current_user.name %>" title="<%= current_user.name %>"></dt>
              <dd>Do you want to say something? <br /><%= f.text_area :body, rows: 3, class: "form-control" %><br /><%= f.submit class: "btn btn-primary" %></dd>

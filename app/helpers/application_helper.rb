@@ -36,8 +36,4 @@ module ApplicationHelper
   def projects_filters_params
     {filter: params[:filter], order: params[:order], search: params[:search]}.compact
   end
-
-  def edition_active?
-    @edition.active?
-  end
 end

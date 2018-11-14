@@ -22,7 +22,7 @@ class Project < ApplicationRecord
   has_many :comments, -> { order( created_at: :asc) }, dependent: :destroy
   has_many :thumbs_up, dependent: :destroy
   belongs_to :edition
-  
+
   has_one :related_project, class_name: "Project", foreign_key: :related_project_id
 
   validates_presence_of :title, :description
@@ -34,6 +34,10 @@ class Project < ApplicationRecord
     users = users + comments.collect(&:owner) if include_commenters
     users = users - [except_user]
     users.uniq
+  end
+
+  def load_related_project(id)
+    seld.related_project = self.find(id)
   end
 
   private

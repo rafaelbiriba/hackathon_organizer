@@ -17,6 +17,10 @@
       <h3 class="panel-title"><%= f.text_field :title, class: "form-control", placeholder: "Project Title" %></h3>
     </div>
     <div class="panel-body">
+      <% if @project.related_project %>
+        <%= render partial: "project_related_to_disclaimer" %>
+        <%= hidden_field_tag :related_project_id, @project.related_project.id  %>
+      <% end %>
       <%= f.text_area :description, rows: 10, class: "form-control", placeholder: "Project description" %>
       <hr />
       <%= f.submit class: "btn btn-primary" %>

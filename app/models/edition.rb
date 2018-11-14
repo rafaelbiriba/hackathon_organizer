@@ -13,6 +13,8 @@ class Edition < ApplicationRecord
   has_many :projects, dependent: :destroy
 
   validates_presence_of :title, :registration_start_date, :start_date, :end_date
+
+  # TODO: Test this validation of overlaps
   validate :dates_should_not_overlap
 
   def active?

@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @project.load_related_project = params[:related_project_id] if params[:related_project_id]
   end
 
   def edit
@@ -26,6 +27,7 @@ class ProjectsController < ApplicationController
   def create
     @project = @edition.projects.new(project_params)
     @project.owner = current_user
+    @project.load_related_project = params[:related_project_id] if params[:related_project_id]
 
     if @project.save
       redirect_to [@edition, @project], notice: "Project was successfully created. If you want to work on this project, don't forget to subscribe below!"
@@ -96,7 +98,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-
   def load_edition
     @edition ||= Edition.find(params[:edition_id])
   end
@@ -165,6 +166,6 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description)
+    params.require(:project).permit(:title, :description, :related_project_id)
   end
 end
