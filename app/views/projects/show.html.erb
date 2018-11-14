@@ -1,9 +1,13 @@
 <div class="project-show">
-  <br/>
+  <% unless edition_active? %>
+    <div class="alert alert-danger">
+      <strong>This project is read-only</strong> because its edition has already finished on <%= human_readable_datetime(@edition.end_date) %>!
+    </div>
+  <% end %>
   <div>
     <%= link_to edition_projects_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Back to list
+      Back to <strong><%= @project.edition.title %></strong> list
     <% end %>
 
     <%= render partial: "project_actions" if edition_active? %>
@@ -18,14 +22,22 @@
       <h3 class="panel-title"><%= @project.title %></h3>
     </div>
     <div class="panel-body">
-      <%= simple_format(@project.description) %>
+      <% if @project.related_project %>
+      <h6>
+        <i class="glyphicon glyphicon-retweet"></i> Related or similar to:
+          <a href="<%= edition_project_path(@project.related_project.edition, @project.related_project) %>" class="label label-primary"><%= truncate(@project.related_project.title, length: 100) %></a> from <a href="<%= edition_projects_path(@project.related_project.edition) %>" class="label label-default"><%= truncate(@project.related_project.edition.title, length: 50) %></a> edition
+      </h6>
+      <hr />
+      <% end %>
+      <p><%= simple_format(@project.description) %></p>
       <hr />
       <p>
         <div class="pull-left">
-          <%= render partial: "social_actions" if edition_active? %>
+          <%= render partial: "social_actions", locals: { thumbs_up_people: thumbs_up_people } if edition_active? %>
         </div>
         <div class="pull-right">
-          <img src="<%= user_profile_image(@project.owner) %>" class="img-circle" width="30px"> Created by <%= @project.owner.name %> at <%= human_readable_date(@project.created_at) %>
+          <img src="<%= user_profile_image(@project.owner) %>" class="img-circle" width="30px">
+          Created by <%= @project.owner.name %> at <%= human_readable_date(@project.created_at) %> for <a href="<%= edition_projects_path %>" class="label label-default"><%= @project.edition.title %></a> edition
         </div>
       </p>
     </div>
@@ -51,7 +63,7 @@
          </dt>
 
          <% if @project.subscribers.empty? %>
-           <dd></br>Nobody yet :( Why you don't invite someone to join?</dd>
+           <dd></br><span class="label label-warning">Nobody</span> &#128546; Why you don't invite someone to join?</dd>
          <% end %>
         </dl>
 
@@ -76,7 +88,7 @@
      <li class="list-group-item">
        <dl class="dl-horizontal">
          <dt>
-           <h4 class="text-primary"><a href="#comments" id="comments"><span class="glyphicon glyphicon-comment"></span> Comments:</a></h4>
+           <h4 class="text-primary"><a href="#comments" id="comments"><i class="glyphicon glyphicon-comment"></i> <%= @project.comments.count %> Comments:</a></h4>
          </dt>
          <dd>
          </dd>
@@ -98,7 +110,7 @@
          <% @project.comments.each_with_index do |comment, index| %>
            <dl class="dl-horizontal">
              <dt id="comment-<%= comment.id %>"><img src="<%= user_profile_image(comment.owner) %>" class="img-thumbnail" width="60px" alt="<%= comment.owner.name %>" title="<%= comment.owner.name %>"></dt>
-             <dd><strong><a href="#comment-<%= comment.id %>">[#<%= index+1 %>]</a> <%= comment.owner.name %></strong> (<%= human_readable_date(comment.updated_at) %>)<br /><%= comment.body %></dd>
+             <dd><strong><a href="#comment-<%= comment.id %>">[#<%= index+1 %>]</a> <%= comment.owner.name %></strong> (<%= human_readable_datetime(comment.updated_at) %>)<br /><%= comment.body %></dd>
            </dl>
          <% end %>
 

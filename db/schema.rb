@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 20180820065613) do
 
   create_table "editions", force: :cascade do |t|
     t.string "title", null: false
-    t.datetime "registration_starts_at", null: false
-    t.datetime "event_starts_at", null: false
-    t.datetime "finishes_at", null: false
+    t.datetime "registration_start_date", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -57,8 +57,10 @@ ActiveRecord::Schema.define(version: 20180820065613) do
     t.datetime "updated_at", null: false
     t.integer "owner_id"
     t.bigint "edition_id"
+    t.integer "related_project_id"
     t.index ["edition_id"], name: "index_projects_on_edition_id"
     t.index ["owner_id"], name: "index_projects_on_owner_id"
+    t.index ["related_project_id"], name: "index_projects_on_related_project_id"
   end
 
   create_table "projects_users", id: false, force: :cascade do |t|

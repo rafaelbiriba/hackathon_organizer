@@ -13,8 +13,8 @@ MAX_COMMENTS_PER_PROJECT = 10
 @super_users = []
 @admin_users = []
 @users = []
-@edition_old = FactoryBot.create(:edition, title: "Old edition", registration_starts_at: Time.now - 5.days, event_starts_at: Time.now - 2.days, finishes_at: Time.now - 1.days)
-@edition_new = FactoryBot.create(:edition, title: "New edition", registration_starts_at: Time.now - 5.day, event_starts_at: Time.now - 2.days, finishes_at: Time.now + 1.year)
+@edition_old = FactoryBot.create(:edition, title: "Old edition", registration_start_date: Time.now - 5.days, start_date: Time.now - 2.days, end_date: Time.now - 1.days)
+@edition_new = FactoryBot.create(:edition, title: "New edition", registration_start_date: Time.now - 5.day, start_date: Time.now - 2.days, end_date: Time.now + 1.year)
 
 ## Creating Users
 SUPER_USER_COUNT.times do
@@ -79,5 +79,13 @@ end
     rand(5..MAX_COMMENTS_PER_PROJECT).times do
       FactoryBot.create(:comment, project: project, owner: @users.sample)
     end
+  end
+
+  ## Creating project related
+  projects_to_be_related_to = @projects.sample(rand(1..@projects.count))
+  projects_to_be_related_from = (@projects - projects_to_be_related_to).sample(1).first
+  projects_to_be_related_to.each do |p|
+    p.related_project = projects_to_be_related_from
+    p.save!
   end
 end

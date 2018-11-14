@@ -8,6 +8,12 @@
   <h1><%= @edition.title %> <span class="label label-default"><%= @projects.count %><% if params["filter"] || params["search"] %> of <%= @total_count %><% end %></span></h1>
 </div>
 
+<% unless edition_active? %>
+  <div class="alert alert-danger">
+    <strong>These projects are all read-only</strong> because this edition has already finished on <%= human_readable_datetime(@edition.end_date) %>!
+  </div>
+<% end %>
+
 <div>
   <div class="pull-left">
     <div class="btn-group">
