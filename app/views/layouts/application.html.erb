@@ -46,11 +46,14 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <%= link_to "#{Settings.company_name} - #{Settings.hackathon_name}", projects_url, class: "navbar-brand" %>
+        <%= link_to "#{Settings.company_name} - #{Settings.hackathon_name}", editions_active_now_url, class: "navbar-brand" %>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <% if current_user %>
         <ul class="nav navbar-nav">
+          <% if any_edition_active_now %>
+          <li><a href="<%= edition_projects_url(any_edition_active_now) %>"><%= any_edition_active_now.title %></a></li>
+          <% end %>
           <li><a href="<%= editions_url %>">Editions</a></li>
           <li><a href="<%= notifications_url %>">Notifications <span class="badge notifications_count"><%= notifications_counter %></span></a></li>
           <% if current_user && current_user.is_admin %>

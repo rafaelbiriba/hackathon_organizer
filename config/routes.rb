@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get "projects" => "projects#index", as: "projects"
+  get "editions/active_now" => "editions#active_now"
 
   resources :editions do
     resources :projects do
@@ -35,5 +35,5 @@ Rails.application.routes.draw do
   match "auth/:provider/callback" => "auth#callback", via: [:get, :post]
   get "auth/failure" => "auth#failure"
 
-  root to: "projects#index"
+  root to: "editions#active_now"
 end
