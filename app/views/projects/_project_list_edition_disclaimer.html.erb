@@ -1,0 +1,30 @@
+<% if loaded_edition_finished? %>
+  <div class="alert alert-danger">
+    <strong>These projects are all read-only</strong> because this edition has already finished on <%= human_readable_datetime(@edition.end_date, seconds: false) %>!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+<% elsif !loaded_edition_active? and !loaded_edition_finished? %>
+<div class="alert alert-warning">
+  <h4 class="alert-heading">Not yet!</h4>
+  The pre-registration of projects for this event start will only at <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(@edition.registration_start_date, seconds: false) %></strong>!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <hr>
+  <p class="mb-0">The event is schedule to start officially at <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(@edition.start_date, seconds: false) %></strong>!</p>
+</div>
+
+<% elsif loaded_edition_active? && !loaded_edition_started? %>
+  <div class="alert alert-success">
+    <h4 class="alert-heading">Get ready!</h4>
+    This event will start at <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(@edition.start_date, seconds: false) %></strong> and will finish at <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(@edition.end_date, seconds: false) %></strong>!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <hr>
+    <p class="mb-0">Until there, <strong>have fun preparing your project, giving likes and joining others' ideas!</strong></p>
+  </div>
+<% end %>

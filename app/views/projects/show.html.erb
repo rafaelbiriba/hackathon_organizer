@@ -1,5 +1,5 @@
 <div class="project-show">
-  <% unless loaded_edition_active? %>
+  <% if loaded_edition_finished? %>
     <div class="alert alert-danger">
       <strong>This project is read-only</strong> because its edition has already finished on <%= human_readable_datetime(@edition.end_date) %>!
     </div>

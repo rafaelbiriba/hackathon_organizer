@@ -7,23 +7,30 @@
   <a href="<%= edition_projects_url(edition) %>" class="list-group-item">
       <h4 class="text-primary">
         <% if edition.active? %>
-
-          <span class="label label-danger">Active now</span>
+          <span class="label label-success">Active now</span>
+        <% elsif edition.finished? %>
+            <span class="label label-danger">Finished</span>
+        <% elsif !edition.active? and !edition.finished? %>
+          <span class="label label-primary">Coming soon</span>
         <% end %>
         <%= edition.title %>
       </h4>
       <p>
-        Projects: <span class="badge"><%= edition.projects.count %></span>
+        Regristration opens at: <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.registration_start_date, seconds: false) %></strong>
       </p>
       <p>
-        Regristration starts at: <%= edition.registration_start_date %>
+        Official event dates: <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.start_date, seconds: false) %></strong> to <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.end_date, seconds: false) %></strong>
       </p>
-      <p>
-        Event starts at: <%= edition.start_date %>
-      </p>
-      <p>
-        Finished at: <%= edition.end_date %>
-      </p>
+
+      <% if edition.finished? %>
+        <p>
+          <strong>Stats:</strong></br>
+          <div>Projects: <span class="badge"><i class="glyphicon glyphicon-list-alt"></i> <%= edition.projects.count %></span></div>
+          <div>Thumbs up: <span class="badge"><i class="glyphicon glyphicon-thumbs-up"></i> <%= edition.projects.collect(&:thumbs_up).flatten.count %></span></div>
+          <div>Subscribers: <span class="badge"><i class="glyphicon glyphicon-heart"></i> <%= edition.projects.collect(&:subscribers).flatten.uniq.count %></span></div>
+          <div>Comments: <span class="badge"><i class="glyphicon glyphicon-comment"></i> <%= edition.projects.collect(&:comments).flatten.count %></span></div>
+        </p>
+      <% end %>
   </a>
 <% end %>
 </div>

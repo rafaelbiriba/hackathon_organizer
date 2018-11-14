@@ -19,8 +19,9 @@ module ApplicationHelper
     date.strftime("%d/%b/%Y")
   end
 
-  def human_readable_datetime(date)
-    date.strftime("%d/%b/%Y %H:%M:%S")
+  def human_readable_datetime(date, seconds: true)
+    second_indicator = ":%S" if seconds
+    date.strftime("%d/%b/%Y %H:%M#{second_indicator}")
   end
 
   def project_list_filter_class(filter_name=nil)
