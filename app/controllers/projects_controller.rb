@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @project.load_related_project = params[:related_project_id] if params[:related_project_id]
+    @project.load_related_project(params[:related_project_id]) if params[:related_project_id]
   end
 
   def edit
@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
   def create
     @project = @edition.projects.new(project_params)
     @project.owner = current_user
-    @project.load_related_project = params[:related_project_id] if params[:related_project_id]
+    @project.load_related_project(params[:related_project_id]) if params[:related_project_id]
 
     if @project.save
       redirect_to [@edition, @project], notice: "Project was successfully created. If you want to work on this project, don't forget to subscribe below!"

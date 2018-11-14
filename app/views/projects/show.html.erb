@@ -11,7 +11,7 @@
     <% end %>
 
     <% if any_edition_active_now %>
-      <%= link_to new_edition_project_path(any_edition_active_now, related_project: @project.id), class: 'btn btn-primary pull-right' do %>
+      <%= link_to new_edition_project_path(any_edition_active_now, related_project_id: @project.id), class: 'btn btn-primary pull-right' do %>
         <span class="glyphicon glyphicon-plus"></span>
         <span class="glyphicon glyphicon-retweet"></span>
         Create a new project related to this on <strong><%= any_edition_active_now.title %></strong>

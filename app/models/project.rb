@@ -37,7 +37,7 @@ class Project < ApplicationRecord
   end
 
   def load_related_project(id)
-    seld.related_project = self.find(id)
+    self.related_project = self.class.find(id)
   end
 
   private

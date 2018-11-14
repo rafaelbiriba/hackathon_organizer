@@ -1,6 +1,6 @@
 <% if current_user.is_admin %>
   <% if current_user_admin_power %>
-    <%= link_to @project, class: 'btn btn-warning' do %>
+    <%= link_to edit_edition_project_path(@edition, @project), class: 'btn btn-warning' do %>
       <span class="glyphicon glyphicon-flash"></span>
       Disable admin power on this page!
     <% end %>

@@ -1,5 +1,9 @@
 <h6>
   <i class="glyphicon glyphicon-retweet"></i> Related or similar to:
-    <a href="<%= edition_project_path(@project.related_project.edition, @project.related_project) %>" class="label label-primary"><%= truncate(@project.related_project.title, length: 100) %></a> from <a href="<%= edition_projects_path(@project.related_project.edition) %>" class="label label-default"><%= truncate(@project.related_project.edition.title, length: 50) %></a> edition
+    <a href="<%= edition_project_path(@project.related_project.edition, @project.related_project) %>" class="label label-primary"><%= truncate(@project.related_project.title, length: 100) %>
+      (<i class="glyphicon glyphicon-heart"></i> <%= @project.related_project.subscribers.count %> -
+      <i class="glyphicon glyphicon-thumbs-up"></i> <%= @project.related_project.thumbs_up.count %> -
+      <i class="glyphicon glyphicon-comment"></i> <%= @project.related_project.comments.count %>)
+    </a> &nbsp; from <a href="<%= edition_projects_path(@project.related_project.edition) %>" class="label label-default"><%= truncate(@project.related_project.edition.title, length: 50) %></a> edition
 </h6>
 <hr />
