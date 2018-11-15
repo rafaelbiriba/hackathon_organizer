@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :load_edition
+  before_action :check_edition_active
   before_action :set_project
 
   def create
@@ -14,6 +15,12 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def check_edition_active
+    return if @edition.active?
+    flash[:error] = "Edition is not active yet!"
+    redirect_to edition_projects_url(@edition)
+  end
 
   def load_edition
     @edition ||= Edition.find(params[:edition_id])

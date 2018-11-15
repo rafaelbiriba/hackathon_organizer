@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :load_edition
   before_action :set_project, except: [:index, :new, :create]
+  before_action :check_edition_active, except: [:index, :show, :admin_force_remove_subscriber]
   before_action :check_project_ownership, only: [:edit, :update, :destroy]
   before_action :validate_admin_user, only: [:admin_force_remove_subscriber]
 
@@ -100,6 +101,12 @@ class ProjectsController < ApplicationController
   private
   def load_edition
     @edition ||= Edition.find(params[:edition_id])
+  end
+
+  def check_edition_active
+    return if @edition.active?
+    flash[:error] = "Edition is not active yet!"
+    redirect_to edition_projects_url(@edition)
   end
 
   def apply_filters!
