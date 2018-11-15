@@ -15,13 +15,6 @@
         <% end %>
         <%= edition.title %>
       </h4>
-      <p>
-        Regristration opens at: <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.registration_start_date, seconds: false) %></strong>
-      </p>
-      <p>
-        Official event dates: <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.start_date, seconds: false) %></strong> to <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.end_date, seconds: false) %></strong>
-      </p>
-
       <% if edition.finished? %>
         <p>
           <strong>Stats:</strong></br>
@@ -30,7 +23,14 @@
           <div>Subscribers: <span class="badge"><i class="glyphicon glyphicon-heart"></i> <%= edition.projects.collect(&:subscribers).flatten.uniq.count %></span></div>
           <div>Comments: <span class="badge"><i class="glyphicon glyphicon-comment"></i> <%= edition.projects.collect(&:comments).flatten.count %></span></div>
         </p>
+      <% else %>
+        <p>
+          Regristration opens at: <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.registration_start_date, seconds: false) %></strong>
+        </p>
       <% end %>
+      <p>
+        Official event dates: <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.start_date, seconds: false) %></strong> to <strong><i class="glyphicon glyphicon-time"></i> <%= human_readable_datetime(edition.end_date, seconds: false) %></strong>
+      </p>
   </a>
 <% end %>
 </div>
