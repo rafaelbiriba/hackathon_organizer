@@ -134,6 +134,8 @@ class ProjectsController < ApplicationController
       project.left_outer_joins(:comments).select("projects.*, count(comments.id) as comments_count").order("comments_count DESC").order("projects.id DESC")
     elsif params["order"] == "top_subscribers"
       project.left_outer_joins(:subscribers).select("projects.*, count(users.id) as users_count").order("users_count DESC").order("projects.id ASC")
+    elsif params["order"] == "most_recent"
+      project.order("projects.id DESC")
     else
       project.left_outer_joins(:subscribers).select("projects.*, count(users.id) as users_count").order("users_count ASC").order("projects.id DESC")
     end

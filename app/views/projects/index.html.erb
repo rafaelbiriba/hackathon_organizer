@@ -24,6 +24,7 @@
   <div class="pull-right">
     <div class="btn-group">
       <a href="<%= edition_projects_url(@edition,projects_filters_params.merge(order: nil)) %>" class="btn btn-sm <%= project_list_order_class %>">Less Popular <span class="glyphicon glyphicon-sort"></a>
+      <a href="<%= edition_projects_url(@edition,projects_filters_params.merge(order: "most_recent")) %>" class="btn btn-sm <%= project_list_order_class("most_recent") %>">Most Recent</a>
       <a href="<%= edition_projects_url(@edition,projects_filters_params.merge(order: "top_comments")) %>" class="btn btn-sm <%= project_list_order_class("top_comments") %>">Top Comments</a>
       <a href="<%= edition_projects_url(@edition,projects_filters_params.merge(order: "top_likes")) %>" class="btn btn-sm <%= project_list_order_class("top_likes") %>">Top Likes</a>
       <a href="<%= edition_projects_url(@edition,projects_filters_params.merge(order: "top_subscribers")) %>" class="btn btn-sm <%= project_list_order_class("top_subscribers") %>">Top Subscribers</a>
