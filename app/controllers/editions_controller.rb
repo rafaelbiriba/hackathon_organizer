@@ -1,5 +1,5 @@
 class EditionsController < ApplicationController
-  before_action :check_for_superuser, except: [:index, :active_now]
+  before_action :check_for_superuser, except: [:index, :show, :active_now]
 
   def active_now
     edition = Edition.active_now
@@ -13,5 +13,9 @@ class EditionsController < ApplicationController
 
   def index
     @editions = Edition.all.order(registration_start_date: :desc)
+  end
+
+  def show
+    redirect_to edition_projects_url(edition_id: params[:id])
   end
 end
