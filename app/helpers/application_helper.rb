@@ -37,4 +37,9 @@ module ApplicationHelper
   def projects_filters_params
     {filter: params[:filter], order: params[:order], search: params[:search]}.compact
   end
+
+  def markdown(input)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true, filter_html: true))
+    markdown.render(input).html_safe
+  end
 end

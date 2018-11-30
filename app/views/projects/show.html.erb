@@ -31,7 +31,7 @@
     </div>
     <div class="panel-body">
       <%= render partial: "project_related_to_disclaimer" if @project.related_project %>
-      <p><%= simple_format(@project.description) %></p>
+      <p><%= markdown(@project.description) %></p>
       <hr />
       <p>
         <div class="pull-left">
