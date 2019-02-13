@@ -21,7 +21,7 @@
         <%= render partial: "project_related_to_disclaimer" %>
         <%= hidden_field_tag :related_project_id, @project.related_project.id  %>
       <% end %>
-      <%= f.text_area :description, rows: 10, class: "form-control", placeholder: "Project description" %>
+      <%= f.text_area :description, rows: 10, class: "form-control", placeholder: "Project/Idea description (Markdown friendly)" %>
       <hr />
       <%= f.submit class: "btn btn-primary" %>
     </div>
