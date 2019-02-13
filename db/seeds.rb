@@ -13,7 +13,7 @@ MAX_COMMENTS_PER_PROJECT = 10
 @super_users = []
 @admin_users = []
 @users = []
-@edition_old = FactoryBot.create(:edition, title: "Old edition", registration_start_date: Time.now - 5.days, start_date: Time.now - 2.days, end_date: Time.now - 1.days)
+@edition_old = FactoryBot.create(:edition, title: "Old edition", registration_start_date: Time.now - 370.days, start_date: Time.now - 267.days, end_date: Time.now - 7.days)
 @edition_new = FactoryBot.create(:edition, title: "New edition", registration_start_date: Time.now - 5.day, start_date: Time.now - 2.days, end_date: Time.now + 1.year)
 
 ## Creating Users

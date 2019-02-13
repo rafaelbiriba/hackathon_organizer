@@ -15,6 +15,8 @@ gem "rest-client"
 gem "omniauth-google-oauth2"
 gem "pg"
 
+gem "redcarpet"
+
 group :development, :test do
   gem "rubocop", require: false
   gem "coveralls", require: false
