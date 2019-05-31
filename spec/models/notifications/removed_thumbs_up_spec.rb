@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Notifications::RemovedThumbsUp do
-  subject { build(:notification_removed_thumbs_up) }
+  subject { create(:notification_removed_thumbs_up) }
 
   describe "metadata" do
     it "should return the correct title" do

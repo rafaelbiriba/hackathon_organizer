@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Notifications::UserSubscribed do
-  subject { build(:notification_user_subscribed) }
+  subject { create(:notification_user_subscribed) }
 
   describe "metadata" do
     it "should return the correct title" do
