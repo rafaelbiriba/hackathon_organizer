@@ -26,7 +26,6 @@ class AuthController < ApplicationController
   private
 
   def update_or_create_user(data)
-    Rails.logger.info ">>>> #{data.inspect}"
     User.find_or_initialize_by(email: data.email).tap do |user|
       user.name = data.name
       user.profile_image_url = data.image
