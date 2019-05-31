@@ -1,8 +1,12 @@
 FactoryBot.define do
   factory :edition do
-    title { "Edition #{Time.now.to_s}" }
-    registration_start_date { Time.now - 2.days }
-    start_date { Time.now }
+    transient do
+      base_date { Time.now }
+    end
+
+    title { "Edition #{base_date.to_s}" }
+    registration_start_date { base_date - 2.days }
+    start_date { base_date }
     end_date { start_date + 2.days }
   end
 end
