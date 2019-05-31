@@ -1,1 +1,1 @@
-module HackathonOrganizer; VERSION = '0.6.0-alpha2'; end
+module HackathonOrganizer; VERSION = '0.6.0-alpha3'; end
