@@ -76,7 +76,7 @@
               <span>
                 <%= user.name %> (<%= user.email %>)
                 <% if current_user_admin_power %>
-                  <%= link_to admin_force_remove_subscriber_project_url(@project, {user_id: user.id}), method: :delete, data: { confirm: "Are you sure to remove #{user.name} from this project?" }, class: 'btn btn-danger btn-sm' do %>
+                  <%= link_to admin_force_remove_subscriber_edition_project_url(@project.edition, {project_id: @project.id, user_id: user.id}), method: :delete, data: { confirm: "Are you sure to remove #{user.name} from this project?" }, class: 'btn btn-danger btn-sm' do %>
                     <span class="glyphicon glyphicon-ban-circle"></span>
                     Remove <%= truncate(user.name, length: 10) %> from this project
                   <% end %>
