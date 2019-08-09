@@ -1,5 +1,5 @@
 class EditionsController < ApplicationController
-  before_action :check_for_superuser, except: [:index, :show, :active_now]
+  before_action :validate_admin_user, except: [:index, :show, :active_now]
 
   def active_now
     edition = Edition.active_now
@@ -17,5 +17,31 @@ class EditionsController < ApplicationController
 
   def show
     redirect_to edition_projects_url(edition_id: params[:id])
+  end
+
+  def new
+    @edition = Edition.new
+    @edition.registration_start_date = Time.now
+    @edition.start_date = Time.now
+    @edition.end_date = Time.now
+  end
+
+  def edit
+    @edition ||= Edition.find(params[:id])
+  end
+
+  def create
+    @edition = Edition.new(editions_params)
+
+    if @edition.save
+      redirect_to editions_url, notice: "Edition was successfully created"
+    else
+      render :new
+    end
+  end
+
+  private
+  def editions_params
+    params.require(:edition).permit(:title, :registration_start_date, :start_date, :end_date)
   end
 end

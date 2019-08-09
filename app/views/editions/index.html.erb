@@ -1,9 +1,22 @@
 <div class="page-header">
+  <% if current_user.is_admin %>
+    <%= link_to new_edition_path, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      New Edition
+    <% end %>
+  <% end %>
   <h1>Editions</h1>
 </div>
 
 <div class="list-group editions">
 <% @editions.each do |edition| %>
+  <% if current_user.is_admin %>
+    <br/>
+    <a href="<%= edit_edition_url(edition) %>" class='btn btn-default'>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit <strong><%= edition.title %></strong> edition
+    </a>
+  <% end %>
   <a href="<%= edition_projects_url(edition) %>" class="list-group-item">
       <h4 class="text-primary">
         <% if edition.active? %>

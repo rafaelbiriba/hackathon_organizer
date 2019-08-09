@@ -5,12 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :define_notifications_counter
 
   private
-  def check_for_superuser
-    return unless @user.is_superuser
-    flash[:error] = "You can not remove the admin power of this user."
-    redirect_to root_url
-  end
-  
   def validate_user_logged
     return if current_user
     flash[:error] = "You are not logged."
@@ -29,5 +23,11 @@ class ApplicationController < ActionController::Base
   # development only
   def set_current_user
     session[:current_user_id] = params[:user] if params[:user]
+  end
+
+  def validate_admin_user
+    return if current_user.is_admin
+    flash[:error] = "You are not an admin."
+    redirect_to root_url
   end
 end
