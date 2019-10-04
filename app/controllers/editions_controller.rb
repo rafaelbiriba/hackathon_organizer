@@ -40,6 +40,16 @@ class EditionsController < ApplicationController
     end
   end
 
+  def update
+    @edition = Edition.find(params[:id])
+    if @edition.update(editions_params)
+      redirect_to editions_url, notice: "Edition #{@edition.title} was successfully updated."
+    else
+      render :edit
+    end
+  end
+
+
   private
   def editions_params
     params.require(:edition).permit(:title, :registration_start_date, :start_date, :end_date)

@@ -41,8 +41,22 @@ class Edition < ApplicationRecord
 
   private
   def dates_should_not_overlap
-    errors.add(:registration_start_date, "there is an overlap of dates") if Edition.find_by_date(registration_start_date, exclude_id: self.id)
-    errors.add(:start_date, "there is an overlap of dates") if Edition.find_by_date(start_date, exclude_id: self.id)
-    errors.add(:end_date, "there is an overlap of dates") if Edition.find_by_date(end_date, exclude_id: self.id)
+    [:registration_start_date, :start_date, :end_date].each do |field|
+      check_for_overlaping_events_for_date(field)
+    end
+  end
+
+  def check_for_overlaping_events_for_date(date_field)
+    date = self.send(date_field)
+    overlap_event = existing_overlaping_event_for(date)
+    if overlap_event
+      errors.add(date_field,
+        "there is an overlap of dates with #{overlap_event.title} event from #{overlap_event.registration_start_date} to #{overlap_event.end_date}"
+      )
+    end
+  end
+
+  def existing_overlaping_event_for(date)
+    Edition.find_by_date(date, exclude_id: self.id)
   end
 end
