@@ -163,7 +163,7 @@ GEM
     pg (1.0.0)
     powerpack (0.1.1)
     public_suffix (3.0.3)
-    puma (3.11.4)
+    puma (3.12.2)
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -293,7 +293,7 @@ DEPENDENCIES
   newrelic_rpm
   omniauth-google-oauth2
   pg
-  puma (~> 3.7)
+  puma (~> 3.12)
   rails (~> 5.1.6)
   rails-controller-testing
   rest-client
