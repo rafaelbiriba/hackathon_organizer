@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Notifications::NewComment do
-  subject { build(:notification_new_comment) }
+  subject { create(:notification_new_comment) }
 
   describe "metadata" do
     it "should return the correct title" do

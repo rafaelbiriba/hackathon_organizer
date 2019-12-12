@@ -2,16 +2,10 @@ require "rails_helper"
 
 RSpec.describe Notification do
   describe "relationships" do
-    # TODO: Enable the .optional (not available at the current version of shoulda-matchers at 3.1.2)
-    # New line should be: it { should belong_to(:user_related).class_name("User").optional }
-    it { should belong_to(:user_related).class_name("User") }
+    it { should belong_to(:user_related).class_name("User").optional }
     it { should belong_to(:user_target).class_name("User") }
-    # TODO: Enable the .optional (not available at the current version of shoulda-matchers at 3.1.2)
-    # New line should be: it { should belong_to(:project).optional }
-    it { should belong_to(:project) }
-    # TODO: Enable the .optional (not available at the current version of shoulda-matchers at 3.1.2)
-    # New line should be: it { should belong_to(:comment).optional }
-    it { should belong_to(:comment) }
+    it { should belong_to(:project).optional }
+    it { should belong_to(:comment).optional }
   end
 
   describe "extras field" do

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Notifications::NewThumbsUp do
-  subject { build(:notification_new_thumbs_up) }
+  subject { create(:notification_new_thumbs_up) }
 
   describe "metadata" do
     it "should return the correct title" do
