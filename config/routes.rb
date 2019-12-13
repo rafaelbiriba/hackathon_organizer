@@ -29,6 +29,6 @@ Rails.application.routes.draw do
   get "auth/logout" => "auth#logout"
   match "auth/:provider/callback" => "auth#callback", via: [:get, :post]
   get "auth/failure" => "auth#failure"
-
+  get "ping" => "application#ping"
   root to: "projects#index"
 end

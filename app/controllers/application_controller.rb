@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :set_current_user if Rails.env.development?
-  before_action :validate_user_logged
-  before_action :define_notifications_counter
+  before_action :validate_user_logged, except: :ping
+  before_action :define_notifications_counter, except: :ping
+
+  def ping
+    render plain: "OK"
+  end
 
   private
   def validate_user_logged
