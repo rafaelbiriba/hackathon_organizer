@@ -2,7 +2,8 @@
 
 Small rails app that receives Hackathon ideas and also to subscribe the developers into it.
 
-*NOTE*: The application is still under development, but it **is stable to use**.
+**NOTE*: The application is no longer **maintaned**. But it **is stable to use**. Use at your own risk.
+If you are interested into taking over the onwership, just get in touch with me.**
 
 **Grab the lastest release at:
 https://github.com/rafaelbiriba/hackathon_organizer/releases**
